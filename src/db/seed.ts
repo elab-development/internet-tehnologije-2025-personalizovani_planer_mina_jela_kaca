@@ -1,12 +1,12 @@
 import "dotenv/config";
-import { korisnici  } from "./schema";
+import { korisniciTabela  } from "./schema";
 import { db } from "./index";
 import bcrypt from "bcrypt";
 
 const hash = await bcrypt.hash("1233", 10);
 
 await db.transaction(async (tx) => {
-    await tx.insert(korisnici).values([
+    await tx.insert(korisniciTabela).values([
     {
 	    username:"mau",
 	    email:"mau@gmail.com",
