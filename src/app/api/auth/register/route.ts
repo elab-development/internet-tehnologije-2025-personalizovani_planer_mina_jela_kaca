@@ -6,19 +6,19 @@ import bcrypt from "bcrypt";
 import { AUTH_COOKIE, cookieOpts, signAuthToken } from "@/lib/auth";
 
 type Body = {
-    email: string;
-    password: string;
     username: string;
+    email: string;
     ime: string;
     prezime: string;
     adresa: string;
+    password: string;
 }
 
 export async function POST(req: Request){
     
     //uzeli smo iz requesta siftu i email i formatirali prema body tj tipu Body
     //req.json ce vratiti samo obican txt fajl 
-    const {email, password, username, ime, prezime, adresa} = (await req.json()) as Body
+    const {username, email, ime, prezime, adresa, password} = (await req.json()) as Body
 
     //proveravamo da li postoji sifra i email za korisnika
     if(!email || !password || !ime || !username || !prezime || !adresa){
