@@ -12,7 +12,7 @@ type Body = {
 
 export async function POST(req: Request){
     
-    //uzeli smo iz requesta siftu i email i formatirali prema body tj tipu Body
+    //uzeli smo iz requesta sifru i email i formatirali prema body tj tipu Body
     //req.json ce vratiti samo obican txt fajl 
     const {email, password} = (await req.json()) as Body
 
