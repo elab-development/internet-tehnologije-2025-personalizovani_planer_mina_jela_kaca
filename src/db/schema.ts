@@ -1,5 +1,5 @@
 
-import { integer, pgTable, varchar, uuid, timestamp } from "drizzle-orm/pg-core";
+import { integer, pgTable, varchar, uuid, timestamp, date, boolean } from "drizzle-orm/pg-core";
 
 export const korisniciTabela = pgTable("korisnici", {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -18,3 +18,27 @@ export const narudzbenicaTabela = pgTable("narudzbenica", {
     pttBroj: integer(),
     createdAt: timestamp("created_at").defaultNow(),
 }); 
+
+export const planeriTabela = pgTable("planeri", {
+    id: uuid("id").primaryKey().defaultRandom(),
+    naziv: varchar("naziv", {length: 100}).notNull(),
+    naslovnaStrana: varchar("naslovnaStrana", {length: 100}).notNull(),
+    brojStranica: integer(),
+    dizajnKorica: varchar("dizajnKorica", {length: 100}).notNull(),
+    bojaStranica: varchar("bojaStranica", {length: 100}).notNull(),
+    vrstaKalendara: date(),
+    vrstaStranica: varchar({enum: ["linije", "kocke", "tacke", "prazno"]}),
+    createdAt: timestamp("created_at").defaultNow(),
+})
+
+export const planerNarudzbenicaTabela = pgTable("planerNarudzbenica", {
+    datumNarudzbine: date(),
+    opis: varchar("opis", {length: 100})
+})
+
+export const templateTabela = pgTable("template", {
+    id: uuid("id").primaryKey().defaultRandom(),
+    tip: varchar("tip", {length: 100}).notNull(),
+    beleske: boolean(),
+    format: varchar("format", {length: 100}).notNull()
+})

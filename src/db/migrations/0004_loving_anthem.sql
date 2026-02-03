@@ -1,0 +1,1 @@
+ALTER TABLE "planeri" ADD COLUMN "bojaStranica" varchar(100) NOT NULL;

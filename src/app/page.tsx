@@ -1,7 +1,5 @@
 import Image from "next/image";
-
-export default function Home() {
-  return (
-    <h1>Home page</h1>
-  );
+import PlanerBrowser from "@/components/PlanerBrowser";
+export default async function Home() {
+  return <PlanerBrowser/>
 }
