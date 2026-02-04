@@ -12,7 +12,7 @@ export interface FullPlaner{
     brojStranica: number;
     dizajnKorica: string;
     bojaStranica: string;
-    vrstaKalendara: Date;
+    vrstaKalendara: String;
     vrstaStranica: vrstaStranicaenum;
     createdAt: Date;
 }

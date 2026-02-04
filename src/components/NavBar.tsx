@@ -4,8 +4,8 @@ export function NavBar (){
     return(
         
         <nav className="fixed top-0 w-full flex items-center justify-around py-5 
-                        px-24 border-b border-pink-500 bg-pink-300 font-bold text-[18px]">
-            <p>Ovo je navbar - Plan2Party</p>
+                        px-24 border-b border-violet-500 bg-violet-400 font-bold text-[18px]">
+            <p>Ovo je navbar - Perpl</p>
 
             <ul className="flex gap-10 text-lg">
                 <Link rel="stylesheet" href="/log-in"> 
