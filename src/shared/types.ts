@@ -1,9 +1,9 @@
-/*const enum vrstaStranicaenum{
+export const enum vrstaStranicaenum{
     linije,
     kocke, 
     tacke,
     prazno
-}*/
+}
 
 export interface FullPlaner{
     id: number;
@@ -13,6 +13,6 @@ export interface FullPlaner{
     dizajnKorica: string;
     bojaStranica: string;
     vrstaKalendara: Date;
-    vrstaStranica: string;
+    vrstaStranica: vrstaStranicaenum;
     createdAt: Date;
 }

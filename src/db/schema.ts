@@ -1,5 +1,5 @@
 
-import { integer, pgTable, varchar, uuid, timestamp, date, boolean } from "drizzle-orm/pg-core";
+import { integer, pgTable, varchar, uuid, timestamp, date, boolean, PgDate } from "drizzle-orm/pg-core";
 
 export const korisniciTabela = pgTable("korisnici", {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -26,7 +26,7 @@ export const planeriTabela = pgTable("planeri", {
     brojStranica: integer(),
     dizajnKorica: varchar("dizajnKorica", {length: 100}).notNull(),
     bojaStranica: varchar("bojaStranica", {length: 100}).notNull(),
-    vrstaKalendara: date(),
+    vrstaKalendara: date("vrstaKalendara"),
     vrstaStranica: varchar({enum: ["linije", "kocke", "tacke", "prazno"]}),
     createdAt: timestamp("created_at").defaultNow(),
 })

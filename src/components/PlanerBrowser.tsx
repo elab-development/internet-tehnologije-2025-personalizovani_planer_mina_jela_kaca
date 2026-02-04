@@ -1,6 +1,6 @@
 export default function PlanerBrowser() {
 return (
-    <div className="mx-auto max-w-7xl px-4 py-8">
+    <div className="mx-auto max-w-7xl px-4 py-20">
         <div className="flex flex-col gap-8 md:flex-row">
            { /*<p>Komponenta PlanerBrowser je ovde</p>*/}
 

@@ -2,10 +2,8 @@ import "dotenv/config";
 import { korisniciTabela, planeriTabela  } from "./schema";
 import { db } from "./index";
 import bcrypt from "bcrypt";
-import { date } from "drizzle-orm/mysql-core";
 
 const hash = await bcrypt.hash("1233", 10);
-
 await db.transaction(async (tx) => {
     await tx.insert(korisniciTabela).values([
     {
@@ -43,7 +41,7 @@ await db.transaction(async (tx) => {
 		brojStranica: 40,
 		dizajnKorica: "viticasto",
 		bojaStranica: "plava",
-		vrstaKalendara: "2025-01-02",
+		vrstaKalendara: '2023-01-01',
 		vrstaStranica: "kocke",
 		
     },
@@ -53,7 +51,7 @@ await db.transaction(async (tx) => {
 		brojStranica: 60,
 		dizajnKorica: "male",
 		bojaStranica: "roza",
-		vrstaKalendara: "10-10-2025",
+		vrstaKalendara:'2023-01-01',
 		vrstaStranica: "linije",
 		
     },
