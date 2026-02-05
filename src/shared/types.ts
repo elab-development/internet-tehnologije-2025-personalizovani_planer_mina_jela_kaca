@@ -16,3 +16,10 @@ export interface FullPlaner{
     vrstaStranica: vrstaStranicaenum;
     createdAt: Date;
 }
+
+export interface ostaliProizvodi{
+    id: number;
+    naziv: string;
+    vrstaProizvoda: string;
+    cena: number;
+}
