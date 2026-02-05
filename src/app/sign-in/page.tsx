@@ -48,7 +48,7 @@ export default function SignUpPage(){
                 onSubmit={handleSubmit}
                 className="w-full max-w-sm space-y-4 border p-6 shadow-md" 
             >
-                <h1 className="text-2xl font-bold mb-4 text-center">Register</h1>
+                <h1 className="text-2xl font-bold mb-4 text-center text-purple-800">Register</h1>
                 <input 
                     type="text" 
                     placeholder="username"

@@ -1,0 +1,1 @@
+ALTER TABLE "korisnici" ADD COLUMN "uloga" varchar NOT NULL;

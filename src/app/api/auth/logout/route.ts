@@ -13,5 +13,5 @@ export async function POST(){
         expires: new Date(0) //
    }) 
 
-   return res;
+   return res
 }
