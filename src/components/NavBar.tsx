@@ -8,9 +8,23 @@ export function NavBar (){
             <p>Ovo je navbar - Perpl</p>
 
             <ul className="flex gap-10 text-lg">
-                <Link rel="stylesheet" href="/log-in"> 
-                    Login
-                </Link>
+                <Link rel="stylesheet" href="/"> Početna </Link>
+                
+                <Link rel="stylesheet" href="/kastomizacija"> Napravi svoj </Link>
+                
+                <Link rel="stylesheet" href="/prodavnica"> Prodavnica </Link>
+
+                <Link rel="stylesheet" href="/korpa"> Korpa </Link>
+
+                <Link rel="stylesheet" href="/placanje"> Placanje </Link>
+
+                {/*admin strana gde su narudzbenice i korisnici, samo admin je vidi*/}
+                <Link rel="stylesheet" href="/admin-strana"> Admin </Link>
+
+                {/*Login ako nije vec prijavljen, logout ako jeste*/}
+                <Link rel="stylesheet" href="/log-in"> Login </Link>
+
+                {/*jer me čini srećnom, sklonićemo kasnije*/}
                 <Link rel="stylesheet" href="https://cat-bounce.com/"> 
                     Mau
                 </Link>

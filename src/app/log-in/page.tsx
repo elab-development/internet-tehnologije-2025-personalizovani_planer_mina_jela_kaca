@@ -1,5 +1,6 @@
 'use client';
 
+import Link from "next/link";
 import { SubmitEvent, useState } from "react";
 
 export default function LogIn (){
@@ -54,6 +55,10 @@ export default function LogIn (){
                 >
                     Uloguj se
                 </button>
+
+                <p className="mb-4 text-center">Nemate nalog? 
+                    <Link className="text-purple-800 hover:text-pink-600" rel="stylesheet" href="/sign-in"> Registrujte se </Link>
+                </p>
             </form>
         </div>
     );

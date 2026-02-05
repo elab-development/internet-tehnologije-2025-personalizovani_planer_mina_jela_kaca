@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link";
 import { SubmitEvent, useState } from "react";
 
 type Body = {
@@ -94,6 +95,10 @@ export default function SignUpPage(){
                 <button type="submit" className="w-full bg-black border text-white py-2 hover:bg-pink-600">
                     Kreiraj nalog
                 </button>
+
+                <p className="mb-4 text-center">Već imate nalog? 
+                    <Link className="text-purple-800 hover:text-pink-600" rel="stylesheet" href="/log-in"> Ulogujte se </Link>
+                </p>
             </form>
         </div>
     );
