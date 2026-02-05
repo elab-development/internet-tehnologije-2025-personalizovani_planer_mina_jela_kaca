@@ -12,13 +12,14 @@ type Body = {
     prezime: string;
     adresa: string;
     password: string;
+    uloga: string;
 }
 
 export async function POST(req: Request){
     
-    //uzeli smo iz requesta siftu i email i formatirali prema body tj tipu Body
+    //uzeli smo iz requesta sifru i email i formatirali prema body tj tipu Body
     //req.json ce vratiti samo obican txt fajl 
-    const {username, email, ime, prezime, adresa, password} = (await req.json()) as Body
+    const {username, email, ime, prezime, adresa, password, uloga} = (await req.json()) as Body
 
     //proveravamo da li postoji sifra i email za korisnika
     if(!email || !password || !ime || !username || !prezime || !adresa){
@@ -38,13 +39,13 @@ export async function POST(req: Request){
 
     //upisujemo u bazu novog korisnika
     const [k] = await db.insert(korisniciTabela)
-    .values({username, email, ime, prezime, adresa, passHash})
+    .values({username, email, ime, prezime, adresa, passHash, uloga: "ulogovani"})
     .returning({id: korisniciTabela.id, username: korisniciTabela.username, email: korisniciTabela.email,  ime: korisniciTabela.ime, 
-        prezime: korisniciTabela.prezime, adresa: korisniciTabela.adresa
+        prezime: korisniciTabela.prezime, adresa: korisniciTabela.adresa, uloga: korisniciTabela.uloga
     })
 
     //kreiramo token
-    const token = signAuthToken({sub: k.id, username: k.username, email: k.email, ime: k.ime, prezime: k.prezime, adresa: k.adresa })
+    const token = signAuthToken({sub: k.id, username: k.username, email: k.email, ime: k.ime, prezime: k.prezime, adresa: k.adresa, uloga: k.uloga })
 
     //upisujemo podatke u cookie
     //uzmemo response

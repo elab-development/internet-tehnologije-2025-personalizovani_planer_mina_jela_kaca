@@ -12,7 +12,8 @@ await db.transaction(async (tx) => {
 	    ime:"Mau",
 	    prezime:"Maunovic",
 	    adresa:"ulica mau",
-	    passHash:hash
+	    passHash:hash,
+		uloga: "ulogovani"
     },
     {
 	    username:"kaca",
@@ -20,7 +21,8 @@ await db.transaction(async (tx) => {
 	    ime:"Kaca",
 	    prezime:"Kacinovic",
 	    adresa:"ulica kaca",
-	    passHash:hash
+	    passHash:hash,
+		uloga: "admin"
     },
     {
 	    username:"mina",
@@ -28,7 +30,8 @@ await db.transaction(async (tx) => {
 	    ime:"Mina",
 	    prezime:"Minic",
 	    adresa:"ulica mina",
-	    passHash:hash
+	    passHash:hash,
+		uloga: "admin"
     },
 ]);
 });

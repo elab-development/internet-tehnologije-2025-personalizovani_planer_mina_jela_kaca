@@ -9,6 +9,7 @@ export const korisniciTabela = pgTable("korisnici", {
     prezime: varchar("prezime", {length: 100}).notNull(),
     adresa: varchar("adresa", {length: 100}).notNull(),
     passHash: varchar("pass_hash", {length: 255}).notNull(),
+    uloga: varchar({enum: ["admin", "ulogovani"]}).notNull(),
     createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -16,6 +17,7 @@ export const narudzbenicaTabela = pgTable("narudzbenica", {
     id: uuid("id").primaryKey().defaultRandom(),
     adresa: varchar("adresa", {length: 100}).notNull(),
     pttBroj: integer(),
+    status: varchar({enum: ["u obradi", "potvrdjena", "odbijena"]}),
     createdAt: timestamp("created_at").defaultNow(),
 }); 
 

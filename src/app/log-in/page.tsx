@@ -4,7 +4,7 @@ import Link from "next/link";
 import { SubmitEvent, useState } from "react";
 
 export default function LogIn (){
-    const [email,setEmail] = useState('');
+    const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
 
     const handleSubmit = async (e:SubmitEvent) => {
@@ -16,7 +16,7 @@ export default function LogIn (){
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email,password})
+            body: JSON.stringify({username,password})
         });
 
         if(res.ok){
@@ -32,12 +32,12 @@ export default function LogIn (){
                 onSubmit={handleSubmit}
                 className="w-full max-w-sm space-y-4 border p-6 shadow-md"
             >
-                <h1 className="text-2xl font-bold mb-4 text-center">Login</h1>
+                <h1 className="text-2xl font-bold mb-4 text-center text-purple-800">Login</h1>
                 <input 
                     type="text"
-                    placeholder="email"
+                    placeholder="username"
                     className="w-full border px-3 py-2"
-                    onChange={(e)=>setEmail(e.target.value)}
+                    onChange={(e)=>setUsername(e.target.value)}
                     required
                 />
                 <input 

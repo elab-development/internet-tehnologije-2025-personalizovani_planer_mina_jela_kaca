@@ -15,6 +15,7 @@ export type JWTKorisnikClaims = {
     ime?: string;
     prezime?: string;
     adresa?: string;
+    uloga: string;  //?
 }
 
 //pravljenje tokena
@@ -36,13 +37,14 @@ export function verifyAuthToken(token: string){
         email: payload.email,
         ime: payload.ime,
         prezime: payload.prezime,
-        adresa: payload.adresa
+        adresa: payload.adresa,
+        uloga: payload.uloga
     }
 }
 
 export function cookieOpts(){
     return {
-        httpOnly: true, //ne moze da se pristupi ovom cookie jedino samo preko http zahteva
+        httpOnly: true, //ne moze da se pristupi ovom cookie - samo preko http zahteva
         sameSite: "lax" as const,  //da sprecimo zlouptrebu cookie-ja
         secure: process.env.NODE_ENV === "production", // kad je aplikacija na produkciji moze samo da prihvata https zahteve
         path: "/",
