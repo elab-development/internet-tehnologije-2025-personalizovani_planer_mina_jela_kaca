@@ -5,6 +5,30 @@ export const enum vrstaStranicaenum{
     prazno
 }
 
+export enum vrstaProizvoda{
+    planer,
+    perplaner,
+    hemijska,
+    stikeri
+}
+
+export enum dizajnKoricaenum{
+    roze,
+    plava,
+    zelena,
+    flamingo,
+    slon,
+    cvece,
+    braon,
+    bez,
+    crna
+}
+
+export interface dizajnKorica{
+    id: number;
+    cena: number;
+}
+
 export interface FullPlaner{
     id: number;
     naziv: string;
@@ -20,6 +44,14 @@ export interface FullPlaner{
 export interface ostaliProizvodi{
     id: number;
     naziv: string;
-    vrstaProizvoda: string;
+    vrstaProizvoda: vrstaProizvoda;
     cena: number;
 }
+
+export enum vrstaKalendara{
+    americki,
+    evropski,
+    kineski,
+    bezkalendara
+}
+

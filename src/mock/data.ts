@@ -1,4 +1,4 @@
-import { FullPlaner, ostaliProizvodi, vrstaStranicaenum } from "@/shared/types";
+import { FullPlaner, ostaliProizvodi, vrstaStranicaenum, vrstaProizvoda } from "@/shared/types";
 
 export const mockPlaneri: FullPlaner[] = [
     {id: 1, naziv: "planer A", naslovnaStrana: "planer za bilje", brojStranica: 40, dizajnKorica: "viticaste", 
@@ -12,17 +12,17 @@ export const mockPlaneri: FullPlaner[] = [
 export const mockProizvodi: ostaliProizvodi[] = [
     {id: 11,
     naziv: "stikeri 1",
-    vrstaProizvoda: "Stiker",
+    vrstaProizvoda: vrstaProizvoda.stikeri,
     cena: 150
     },
     {id: 12,
     naziv: "stikeri 2",
-    vrstaProizvoda: "Stiker",
+    vrstaProizvoda: vrstaProizvoda.stikeri,
     cena: 150
     },
     {id: 21,
     naziv: "hemijska 1",
-    vrstaProizvoda: "hemijska",
+    vrstaProizvoda: vrstaProizvoda.hemijska,
     cena: 200
     }
 ]

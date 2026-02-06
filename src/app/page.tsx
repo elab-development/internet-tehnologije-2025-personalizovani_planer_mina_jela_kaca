@@ -1,6 +1,11 @@
+"use client";
+
 import Image from "next/image";
 import PlanerBrowser from "@/components/PlanerBrowser";
 import TextBox from "@/components/TextBox";
+import { useState } from "react";
+
+
 
 export default async function Home() {
   
@@ -14,7 +19,7 @@ export default async function Home() {
       
       <section className="py-16 text-center">
         <h2 className="text-4xl font-bold mt-6 mb-4 text-pink-800">PerPl</h2>
-        <section className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-6"><p className="text-gray-600 text-lg mb-6">
+        <section className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6"><p className="text-gray-600 text-lg mb-6">
           Najfleksibilniji planer za sve Vaše potrebe. Lorem ipsum dolor sit amet consectetur adipisicing elit. Et tempora recusandae beatae pariatur deserunt voluptas omnis minus at, molestiae dolor reprehenderit adipisci numquam? At excepturi facilis adipisci, ex accusamus maiores?
         </p>       
         <Image src="/heehee.jpg"
@@ -23,6 +28,8 @@ export default async function Home() {
                          height={300}
                          className="h-40 w-full object-cover transition-transform duration-200 group-hover:scale-101"
                        />
+                           
+                       
 
       </section>
 

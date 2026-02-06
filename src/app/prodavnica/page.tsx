@@ -24,7 +24,7 @@ export default function ProdavnicaPage({ searchParams }: Props) {
         <h1 className="text-4xl font-bold mb-4 text-gray-800">Prodavnica</h1>
         <h1 className="text-gray-600">Trenutno dostupni artikli:</h1>
         </div>
-    <section className="bg-violet-200 max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6">
+    <section className="bg-violet-200 max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6 rounded-3xl">
       {currentItems.map((proizvod) => (
         <TextBox key={proizvod.id} name={proizvod.naziv} />
       ))}
@@ -43,6 +43,10 @@ export default function ProdavnicaPage({ searchParams }: Props) {
         ))}
       </div>
     </section>
+    <footer className="bg-white shadow py-4 mt-12 text-center text-gray-500 text-sm">
+        Kontakt telefon: +381 61 2345678 <br/>
+        &copy; FON
+      </footer>
     </main>
   );
 }
