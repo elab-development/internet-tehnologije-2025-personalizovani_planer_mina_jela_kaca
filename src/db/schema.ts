@@ -1,5 +1,5 @@
 
-import { integer, pgTable, varchar, uuid, timestamp, date, boolean, PgDate } from "drizzle-orm/pg-core";
+import { integer, pgTable, varchar, uuid, timestamp, date, boolean, PgDate, real } from "drizzle-orm/pg-core";
 
 export const korisniciTabela = pgTable("korisnici", {
     id: uuid("id").primaryKey().defaultRandom(),
@@ -15,32 +15,54 @@ export const korisniciTabela = pgTable("korisnici", {
 
 export const narudzbenicaTabela = pgTable("narudzbenica", {
     id: uuid("id").primaryKey().defaultRandom(),
-    adresa: varchar("adresa", {length: 100}).notNull(),
+    adresa: varchar("adresa", {length: 100}),
     pttBroj: integer(),
+    datum: timestamp("datum").defaultNow(),
+    ukupnaCena: real(),
     status: varchar({enum: ["u obradi", "potvrdjena", "odbijena"]}),
+    korisnikID: uuid("korisnikID").notNull().references(()=>korisniciTabela.id), //fk - Korisnik
     createdAt: timestamp("created_at").defaultNow(),
 }); 
 
-export const planeriTabela = pgTable("planeri", {
+export const stavkaNarudzbeniceTabela = pgTable("stavkaNarudzbenice", {
     id: uuid("id").primaryKey().defaultRandom(),
-    naziv: varchar("naziv", {length: 100}).notNull(),
-    naslovnaStrana: varchar("naslovnaStrana", {length: 100}).notNull(),
-    brojStranica: integer(),
-    dizajnKorica: varchar("dizajnKorica", {length: 100}).notNull(),
-    bojaStranica: varchar("bojaStranica", {length: 100}).notNull(),
-    vrstaKalendara: date("vrstaKalendara"),
-    vrstaStranica: varchar({enum: ["linije", "kocke", "tacke", "prazno"]}),
+    cena: real(),
+    narudzbenicaID: uuid("narudzbenicaID").notNull().references(()=>narudzbenicaTabela.id), //fk ka Narudzbenici
+    proizvodID: uuid("proizvodID").notNull().references(()=>proizvodTabela.id), //fk ka Proizvod
     createdAt: timestamp("created_at").defaultNow(),
 })
 
-export const planerNarudzbenicaTabela = pgTable("planerNarudzbenica", {
-    datumNarudzbine: date(),
-    opis: varchar("opis", {length: 100})
+export const proizvodTabela = pgTable("proizvod", {
+    id: uuid("id").primaryKey().defaultRandom(),
+    tip: varchar({enum: ["planer", "stiker"]}),
+    createdAt: timestamp("created_at").defaultNow(),
 })
 
-export const templateTabela = pgTable("template", {
+export const planerTabela = pgTable("planer", {
+    posveta: varchar("posveta", {length: 100}),
+    brojStranica: integer(),
+    dimenzije: varchar({enum: ["A6", "B6", "A5", "A4"]}),
+    bojaStranica: varchar({enum: ["bela", "svetlo roze", "svetlo plava", "svetlo zelena", "svetlo ljubičasta"]}), 
+    vrstaKalendara: varchar({enum: ["dd.MM.yyyy.", "MM-dd-yyyy", "yyyy/MM/dd"]}),
+    kalendar: varchar("kalendar", {length: 100}), //npr: januar 2026 ... maj2026 ...
+    vrstaStranica: varchar({enum: ["linije", "kocke", "tacke", "prazno"]}),
+    cena: real(),
+    ////
+    proizvodID: uuid("proizvodID").references(()=>proizvodTabela.id), //fk ka Proizvod
+    koriceID: uuid("koriceID").notNull().references(()=>koriceTabela.id),
+    createdAt: timestamp("created_at").defaultNow(),
+})
+
+export const koriceTabela = pgTable("korice", {
     id: uuid("id").primaryKey().defaultRandom(),
-    tip: varchar("tip", {length: 100}).notNull(),
-    beleske: boolean(),
-    format: varchar("format", {length: 100}).notNull()
+    tip: varchar({enum: ["patern", "boja", "koža"]}),
+    izgled: varchar("izgled", {length: 100}),
+    createdAt: timestamp("created_at").defaultNow(),
+})
+
+export const stikerTabela = pgTable("stiker", {
+    opis: varchar("opis", {length: 255}),
+    cena: real(),
+    proizvodID: uuid("proizvodID").references(()=>proizvodTabela.id),   //fk ka Proizvodu
+    createdAt: timestamp("created_at").defaultNow(),
 })

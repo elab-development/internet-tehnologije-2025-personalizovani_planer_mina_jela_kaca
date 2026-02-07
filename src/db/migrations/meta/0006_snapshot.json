@@ -1,0 +1,477 @@
+{
+  "id": "96c3c369-462d-46fa-a95b-c1ccf92e37db",
+  "prevId": "4405c828-715b-401f-a03d-73a46f916462",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "public.korice": {
+      "name": "korice",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tip": {
+          "name": "tip",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "izgled": {
+          "name": "izgled",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.korisnici": {
+      "name": "korisnici",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "username": {
+          "name": "username",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "ime": {
+          "name": "ime",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prezime": {
+          "name": "prezime",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "adresa": {
+          "name": "adresa",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "pass_hash": {
+          "name": "pass_hash",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "uloga": {
+          "name": "uloga",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "korisnici_email_unique": {
+          "name": "korisnici_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.narudzbenica": {
+      "name": "narudzbenica",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "adresa": {
+          "name": "adresa",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "pttBroj": {
+          "name": "pttBroj",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "datum": {
+          "name": "datum",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "ukupnaCena": {
+          "name": "ukupnaCena",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "status": {
+          "name": "status",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "korisnikID": {
+          "name": "korisnikID",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "narudzbenica_korisnikID_korisnici_id_fk": {
+          "name": "narudzbenica_korisnikID_korisnici_id_fk",
+          "tableFrom": "narudzbenica",
+          "tableTo": "korisnici",
+          "columnsFrom": [
+            "korisnikID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.planer": {
+      "name": "planer",
+      "schema": "",
+      "columns": {
+        "posveta": {
+          "name": "posveta",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "brojStranica": {
+          "name": "brojStranica",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "dimenzije": {
+          "name": "dimenzije",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bojaStranica": {
+          "name": "bojaStranica",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vrstaKalendara": {
+          "name": "vrstaKalendara",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "kalendar": {
+          "name": "kalendar",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "vrstaStranica": {
+          "name": "vrstaStranica",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cena": {
+          "name": "cena",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "proizvodID": {
+          "name": "proizvodID",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "koriceID": {
+          "name": "koriceID",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "planer_proizvodID_proizvod_id_fk": {
+          "name": "planer_proizvodID_proizvod_id_fk",
+          "tableFrom": "planer",
+          "tableTo": "proizvod",
+          "columnsFrom": [
+            "proizvodID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "planer_koriceID_korice_id_fk": {
+          "name": "planer_koriceID_korice_id_fk",
+          "tableFrom": "planer",
+          "tableTo": "korice",
+          "columnsFrom": [
+            "koriceID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.proizvod": {
+      "name": "proizvod",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "tip": {
+          "name": "tip",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.stavkaNarudzbenice": {
+      "name": "stavkaNarudzbenice",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "cena": {
+          "name": "cena",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "narudzbenicaID": {
+          "name": "narudzbenicaID",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "proizvodID": {
+          "name": "proizvodID",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "stavkaNarudzbenice_narudzbenicaID_narudzbenica_id_fk": {
+          "name": "stavkaNarudzbenice_narudzbenicaID_narudzbenica_id_fk",
+          "tableFrom": "stavkaNarudzbenice",
+          "tableTo": "narudzbenica",
+          "columnsFrom": [
+            "narudzbenicaID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "stavkaNarudzbenice_proizvodID_proizvod_id_fk": {
+          "name": "stavkaNarudzbenice_proizvodID_proizvod_id_fk",
+          "tableFrom": "stavkaNarudzbenice",
+          "tableTo": "proizvod",
+          "columnsFrom": [
+            "proizvodID"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.stiker": {
+      "name": "stiker",
+      "schema": "",
+      "columns": {
+        "opis": {
+          "name": "opis",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "cena": {
+          "name": "cena",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "stiker_id_proizvod_id_fk": {
+          "name": "stiker_id_proizvod_id_fk",
+          "tableFrom": "stiker",
+          "tableTo": "proizvod",
+          "columnsFrom": [
+            "id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {},
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

@@ -6,8 +6,8 @@ import TextBox from "@/components/TextBox";
 import { useState } from "react";
 
 
-
-export default async function Home() {
+//nije async :0
+export default function Home() {
   
   
   return (
