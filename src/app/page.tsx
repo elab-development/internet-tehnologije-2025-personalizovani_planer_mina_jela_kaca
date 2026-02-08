@@ -1,13 +1,13 @@
-"use client";
+
 
 import Image from "next/image";
 import PlanerBrowser from "@/components/PlanerBrowser";
 import TextBox from "@/components/TextBox";
-import { useState } from "react";
+
+import ComboBox from "@/components/ComboBox";
 
 
-
-export default async function Home() {
+export default function Home() {
   
   
   return (
@@ -22,12 +22,10 @@ export default async function Home() {
         <section className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6"><p className="text-gray-600 text-lg mb-6">
           Najfleksibilniji planer za sve Vaše potrebe. Lorem ipsum dolor sit amet consectetur adipisicing elit. Et tempora recusandae beatae pariatur deserunt voluptas omnis minus at, molestiae dolor reprehenderit adipisci numquam? At excepturi facilis adipisci, ex accusamus maiores?
         </p>       
-        <Image src="/heehee.jpg"
-                         alt=""
-                         width={400}
-                         height={300}
-                         className="h-40 w-full object-cover transition-transform duration-200 group-hover:scale-101"
-                       />
+        <Image src="/heehee.jpg" alt="" width={400} height={300}
+              className="h-40 w-full object-cover transition-transform duration-200 group-hover:scale-101"
+          />
+          <ComboBox />
                            
                        
 

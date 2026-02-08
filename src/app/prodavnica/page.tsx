@@ -11,8 +11,9 @@ interface Props {
   searchParams?: { page?: string };
 }
 
-export default function ProdavnicaPage({ searchParams }: Props) {
-  const currentPage = parseInt(searchParams?.page || "1");
+export default async function ProdavnicaPage({ searchParams }: Props) {
+  const p = await searchParams;
+  const currentPage = parseInt( p?.page || "1");
   const totalPages = Math.ceil(mockProizvodi.length / BrojProizvoda);
 
   const startIndex = (currentPage - 1) * BrojProizvoda;

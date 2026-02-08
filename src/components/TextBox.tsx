@@ -3,7 +3,7 @@ import React from "react";
 import { ostaliProizvodi } from "@/shared/types";
 
 type Props = {
-  name: String;
+  name: string;
 }
 
 export default function TextBox( { name }: Props) {
