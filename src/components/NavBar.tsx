@@ -12,7 +12,7 @@ export function NavBar (){
     const {status, user, logout} = useAuth();
     const isLoggedIn = status === "autentifikovani";
     //provera da li je admin
-    const isAdmin = status === "autentifikovani" && user.uloga === "admin";
+    const isAdmin = status === "autentifikovani" && user?.uloga === "admin";
     const [open, setOpen] = useState(false);
     
     
@@ -80,11 +80,6 @@ export function NavBar (){
                 )}
 
 
-
-                {/*jer me čini srećnom, sklonićemo kasnije*/}
-                <Link rel="stylesheet" href="https://cat-bounce.com/"> 
-                    Mau
-                </Link>
             </ul>
 
 

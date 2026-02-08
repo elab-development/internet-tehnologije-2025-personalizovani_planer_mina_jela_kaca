@@ -1,4 +1,14 @@
+import { AUTH_COOKIE } from "@/lib/auth";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 export default async function Placanje(){
+
+    const kolac = await cookies();
+    const token = kolac.get(AUTH_COOKIE)?.value;
+    if(!token){
+        redirect("/log-in");
+    }
 
     return(
         <main className="min-h-screen bg-gray-100 font-sans">

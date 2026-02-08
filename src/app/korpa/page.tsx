@@ -1,4 +1,15 @@
+
+import { cookies } from "next/headers";
+import { AUTH_COOKIE, verifyAuthToken } from "@/lib/auth";
+import { redirect } from "next/navigation";
+
 export default async function Korpa(){
+
+    const kolac = await cookies();
+    const token = kolac.get(AUTH_COOKIE)?.value;
+    if(!token){
+        redirect("/log-in");
+    }
 
     return(
         <main className="min-h-screen bg-gray-100 font-sans">
