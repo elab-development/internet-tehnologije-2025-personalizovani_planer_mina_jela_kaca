@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useAuth} from "@/components/AuthProvider";
 import { useState } from "react";
 import { RiUser3Line } from "@remixicon/react";
+import { redirect } from "next/navigation";
  
 
 
@@ -36,8 +37,6 @@ export function NavBar (){
 
                 <Link className = "text-purple-900" rel="stylesheet" href="/korpa"> Korpa </Link>
 
-                {/*Ovo je CHECKOUT - ne trab da stoji u navbaru nego se prilazi iz Korpe */}
-                <Link className = "text-purple-900" rel="stylesheet" href="/placanje"> Placanje </Link>
 
                 {/*admin strana gde su narudzbenice i korisnici, samo admin je vidi*/}
                 {isAdmin &&
@@ -62,6 +61,14 @@ export function NavBar (){
                             <span className="block px-2 py-1 text-purple-700 max-w-[140px] text-nowrap overflow-hidden ">
                                 {user?.ime}{" ["}{user?.username}{"]"}
                             </span>
+
+                            <button
+                                //REDIRECT--> /profil
+                                className="w-full text-left block rounded px-2 py-1 text-pink-600 hover:bg-pink-50"
+                            >
+                                    Profil
+                            </button>
+                            
                             <button
                                 onClick={handleLogout}
                                 className="w-full text-left block rounded px-2 py-1 text-pink-600 hover:bg-pink-50"
