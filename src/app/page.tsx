@@ -7,6 +7,7 @@ import TextBox from "@/components/TextBox";
 import ComboBox from "@/components/ComboBox";
 
 
+
 export default function Home() {
   
   
@@ -31,9 +32,13 @@ export default function Home() {
 
       </section>
 
-      <button className="bg-black text-violet-200 px-6 py-3 rounded hover:bg-pink-600 ">
-          Kreiraj novi planer
-        </button></section>
+       <a href="/kastomizacija">
+          <button className="bg-black text-violet-200 px-6 py-3 rounded hover:bg-pink-600 ">
+            Kreiraj novi planer
+          </button>
+        </a> 
+        
+      </section>
 
       
       <section className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6 flex-row">

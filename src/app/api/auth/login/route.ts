@@ -23,7 +23,6 @@ export async function POST(req: Request){
 
     //proveravamo za korisnika u bazi
     //ali uzimamo jednog korisnika jer ce ovo vratiti listu svih korisnika
-    //PONOVO POGLEDATI ZASTO PETAR MISLI OVAKO
     const [k] = await db.select().from(korisniciTabela).where(eq(korisniciTabela.username, username))
     if(!k){
         return NextResponse.json({error: "Pogresno korisnicko ime"}, {status: 401})

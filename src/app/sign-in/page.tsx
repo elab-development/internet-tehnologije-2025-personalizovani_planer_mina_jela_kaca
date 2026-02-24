@@ -43,7 +43,7 @@ export default function SignUpPage(){
     }
 
     return(
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-screen flex items-center justify-center py-15">
             <form
                 onSubmit={handleSubmit}
                 className="w-full max-w-sm space-y-4 border p-6 shadow-md" 
