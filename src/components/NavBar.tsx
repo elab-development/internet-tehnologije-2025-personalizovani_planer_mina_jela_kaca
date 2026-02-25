@@ -4,7 +4,7 @@ import Link from "next/link";
 import {useAuth} from "@/components/AuthProvider";
 import { useState } from "react";
 import { RiUser3Line } from "@remixicon/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
  
 
 
@@ -14,9 +14,9 @@ export function NavBar (){
     const isLoggedIn = status === "autentifikovani";
     //provera da li je admin
     const isAdmin = status === "autentifikovani" && user?.uloga === "admin";
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState(false); //prozor profila
     
-    
+    const router = useRouter();
 
     const handleLogout = async () => {
         await logout();
@@ -62,11 +62,14 @@ export function NavBar (){
                                 {user?.ime}{" ["}{user?.username}{"]"}
                             </span>
 
-                            <button
-                                //REDIRECT--> /profil
-                                className="w-full text-left block rounded px-2 py-1 text-pink-600 hover:bg-pink-50"
+                            <button 
+                                onClick={()=> {
+                                    router.push("/profil"); //navigacija na 'use client' strani, ne izvrsava se dok korisnik ne klikne!
+                                    setOpen(false);
+                                }}                         
+                                className="w-full text-left block rounded px-2 py-1 text-purple-800 hover:bg-pink-50"
                             >
-                                    Profil
+                                Profil
                             </button>
                             
                             <button
