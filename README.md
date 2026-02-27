@@ -1,4 +1,4 @@
-# Prodavnica personalizovanih planer PerPl
+# Prodavnica personalizovanih planera PerPl
 
 ## Priprema
 
