@@ -20,12 +20,12 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
   const currentItems = mockProizvodi.slice(startIndex, startIndex + BrojProizvoda);
 
   return (
-    <main className="min-h-screen bg-gray-100 font-sans">
+    <main className=" bg-gray-100 font-sans min-h-screen">
         <div className="py-16 text-center">
         <h1 className="text-4xl font-bold mb-4 text-gray-800">Prodavnica</h1>
         <h1 className="text-gray-600">Trenutno dostupni artikli:</h1>
         </div>
-    <section className="bg-violet-200 max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-6 rounded-3xl">
+    <section className="bg-slate-100 max-w-6xl mx-auto px-4 py-12 pb-15 grid md:grid-cols-3 gap-6 rounded-3xl">
       {currentItems.map((proizvod) => (
         <TextBox key={proizvod.id} name={proizvod.naziv} />
       ))}
@@ -44,10 +44,6 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
         ))}
       </div>
     </section>
-    <footer className="bg-white shadow py-4 mt-12 text-center text-gray-500 text-sm">
-        Kontakt telefon: +381 61 2345678 <br/>
-        &copy; FON
-      </footer>
     </main>
   );
 }

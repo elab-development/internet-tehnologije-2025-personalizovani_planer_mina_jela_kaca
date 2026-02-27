@@ -25,17 +25,22 @@ export function NavBar (){
 
     return(
 
-        <nav className="fixed top-0 w-full flex items-center justify-around py-5 px-24 border-b border-violet-800 bg-violet-400 font-bold text-[20px]">
-            <p>Perpl</p>
+        <nav className="sticky top-0 w-full flex items-center justify-around py-5 px-24 border-b border-violet-300 bg-black font-bold text-[20px] z-1200">
+            <p className="text-pink-500">Perpl</p>
 
             <ul className="flex gap-10 text-lg">
-                <Link className = "text-purple-900" rel="stylesheet" href="/"> Početna </Link>
+                <Link className = "text-violet-400" rel="stylesheet" href="/"> Početna </Link>
                 
-                <Link className = "text-purple-900" rel="stylesheet" href="/kastomizacija"> Napravi svoj </Link>
+                <Link className = "text-violet-400" rel="stylesheet" href="/kastomizacija"> Napravi svoj </Link>
                 
-                <Link className = "text-purple-900" rel="stylesheet" href="/prodavnica"> Prodavnica </Link>
+                <Link className = "text-violet-400" rel="stylesheet" href="/prodavnica"> Prodavnica </Link>
 
-                <Link className = "text-purple-900" rel="stylesheet" href="/korpa"> Korpa </Link>
+                <Link className = "text-violet-400" rel="stylesheet" href="/korpa"> Korpa </Link>
+
+
+
+                {/*Ovo je CHECKOUT - ne trab da stoji u navbaru nego se prilazi iz Korpe */}
+                <Link className = "text-violet-400" rel="stylesheet" href="/placanje"> Placanje </Link>
 
 
                 {/*admin strana gde su narudzbenice i korisnici, samo admin je vidi*/}
@@ -55,10 +60,10 @@ export function NavBar (){
                         </button>
 
                         <div
-                            className={`z-50  absolute right-0 top-12  min-w-[190px] rounded-md border border-black/10 
+                            className={`z-50  absolute right-0 top-12  min-w-47.5 rounded-md border border-black/10 
                                 bg-white p-2 text-sm shadow-md transition-all ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                         >
-                            <span className="block px-2 py-1 text-purple-700 max-w-[140px] text-nowrap overflow-hidden ">
+                            <span className="block px-2 py-1 text-purple-700 max-w-35 text-nowrap overflow-hidden ">
                                 {user?.ime}{" ["}{user?.username}{"]"}
                             </span>
 
