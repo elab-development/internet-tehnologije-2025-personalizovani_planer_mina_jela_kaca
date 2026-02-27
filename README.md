@@ -1,36 +1,71 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Prodavnica personalizovanih planer PerPl
 
-## Getting Started
+## Priprema
 
-First, run the development server:
+Prve svega treba instalirati sve neophodne pakete
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+zatim treba pokrenuti bazu podataka
+naša baza se nalazi u docker container-u
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+za pokretanje docker kontejnera koristi se 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+sudo docker container start containerID
+```
 
-## Learn More
+containerID za zeljeni kontejner se moze videti sa
 
-To learn more about Next.js, take a look at the following resources:
+```
+sudo docker ps -a
+primer docker kontenjer-a: b9d6a2547954
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+kreirati .env fajl sa relevantnim podacima 
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/planeri
+API_URL=http://localhost:3001
+JWT_SECRET=TAJNA_LOZINKA_ZA_JWT_TOKEN
+JWT_EXPIRES=7d
 
-## Deploy on Vercel
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Ukoliko ne postoji docker container sa našom bazom kad uradimo komandu
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+sudo docker ps -a
+```
+
+Pokrećemo komandu za pravljenje novog docker containera koji će se povezati sa SQL postgres bazom iz .env fajla
+
+```
+sudo docker run --name planeri-postgres
+ -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=planeri
+ -p 5432:5432
+ -v planeri_pgdata:/var/lib/postgresql/data
+ -d postgres:17
+```
+
+nakon toga treba pokrenuti migracije
+migracije su ovom kontekstu samo pravljenje baze 
+tj. strukture same baze
+
+```
+npm run db:migrate
+```
+
+a postoji i seeder za svrhe testiranja i za popunjavanje baze sa odgovarajućim podacima
+
+```
+npm run db:seed
+```
+
+## Pokretanje
+
+```
+npm run dev
+```
