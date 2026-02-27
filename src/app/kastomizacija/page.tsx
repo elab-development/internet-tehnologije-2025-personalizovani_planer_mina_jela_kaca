@@ -30,8 +30,7 @@ export default async function Kastomizacija(){
 
 
     return(
-        <main className="min-h-screen bg-gray-100 font-sans bg-purple-100 
-            absolute inset-0 -z-10 h-full w-full bg-[radial-gradient(#e9cced_1px,transparent_1px)] [background-size:16px_16px] ">
+        <main className="min-h-screen bg-gray-100 font-sans bg-purple-100">
             <div className="py-20 text-center">
                 <h1 className="text-4xl font-bold mb-1 text-purple-800">NAPRAVI SVOJ</h1>
                 <h1 className="text-4xl font-bold mb-4 text-pink-800">PERSONALIZOVANI PLANER</h1>
