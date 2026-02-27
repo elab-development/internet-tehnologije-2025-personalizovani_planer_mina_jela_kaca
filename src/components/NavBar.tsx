@@ -56,10 +56,10 @@ export function NavBar (){
                         </button>
 
                         <div
-                            className={`z-50  absolute right-0 top-12  min-w-[190px] rounded-md border border-black/10 
+                            className={`z-50  absolute right-0 top-12  min-w-47.5 rounded-md border border-black/10 
                                 bg-white p-2 text-sm shadow-md transition-all ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
                         >
-                            <span className="block px-2 py-1 text-purple-700 max-w-[140px] text-nowrap overflow-hidden ">
+                            <span className="block px-2 py-1 text-purple-700 max-w-35 text-nowrap overflow-hidden ">
                                 {user?.ime}{" ["}{user?.username}{"]"}
                             </span>
                             <button
