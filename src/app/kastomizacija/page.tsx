@@ -51,15 +51,20 @@ export default async function Kastomizacija(){
                 <h2 className="text-lg font-bold text-purple-800">BROJ STRANICA:</h2>
                 <KastomizacijaClient type="brStranica"/> 
 
+                <h2 className="text-lg font-bold text-purple-800">VRSTA STRANICA(LINIJA):</h2>
+                <KastomizacijaClient type="vrstaStranica"/> 
+
+                <h2 className="font-semibold text-purple-800 pt-4">Posveta:</h2> 
+                <input type="text" maxLength={30} className="border-1 border-purple-800 w-full" />
+
             </div>
 
 
-            {/*DIV ZA LINIJE/ POSVETU */}
-            <div></div>
-
-
             {/*DIV ZA KORICE*/}
-            <div>
+            <div className="flex flex-col items-center gap-4 border-4 border-dotted border-purple-500 rounded-lg py-8 px-20">
+
+                <h2 className="text-lg font-bold text-purple-800">KORICE:</h2>
+                <KastomizacijaClient type="korice"/>
 
                 {/*POD-DIV ZA KORICE*/}
                 <div></div>
@@ -75,7 +80,7 @@ export default async function Kastomizacija(){
             <div></div>
 
             {/*DUGME forma*/}
-            <form action={dodajUKorpu} className="text-center">
+            <form action={dodajUKorpu} className="text-center pb-4">
                 <button
                     type="submit"
                     className="bg-purple-600 hover:bg-pink-500 text-white rounded-lg px-3 py-3">
