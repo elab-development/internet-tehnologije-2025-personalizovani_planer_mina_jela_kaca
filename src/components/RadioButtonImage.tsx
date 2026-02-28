@@ -4,7 +4,7 @@ type Element = {
     id: number;
     label: string;
     value: string;    
-}
+};
 
 type RadioButtonElements = {
     elements: Element[];
@@ -27,7 +27,9 @@ export function RadioButtonImage({ elements, selectedValue, onChange }: RadioBut
                         />
                     
 
-                    <button onClick={ () => onChange(element.value)}
+                    <button 
+                        type="button"
+                        onClick={ () => onChange(element.value)}
                         className={
                             
                             `px-4 py-2 rounded transition-colors +  

@@ -1,25 +1,20 @@
 "use client"
 
-import { useState } from "react"
 import { RadioButton } from "./RadioButton";
 import { RadioButtonImage } from "./RadioButtonImage";  
 
 
 type KastomizacijaClientTip = {  //koji tip radioButton-a se trazi da vrati
-    type: "dimenzija" | "brStranica" | "vrstaStranica" | "korice" | "bojaStranica" | "vrstaKalendara";
+    type: "dimenzije" | "brojStranica" | "vrstaStranica" | "korice" | "bojaStranica" | "vrstaKalendara";
+
+    value: string | null;
+    subValue?: string | null;
+    onChange : (value: string) => void;
+    onSubChange? : (value: string | null) => void; //null-able
 }
 
 
-export function KastomizacijaClient({type} : KastomizacijaClientTip){
-
-    const [dimenzija, setDimenzija] = useState<string|null>(null);
-    const [brStranica, setBrStranica] = useState<string | null>(null);
-    const [vrstaStranica, setVrstaStranica] = useState<string | null>(null);
-    const [korice, setKorice] = useState<string | null> (null);
-    const [koriceIzgled, setKoriceIzgled] = useState<string | null>(null);
-    const [bojaStranica, setBojaStranica] = useState<string | null>(null);
-    const [vrstaKalendara, setVrstaKalendara] = useState<string | null>(null);
-    const [kalendar, setKalendar] = useState<string | null>(null);
+export function KastomizacijaClient({type, value, subValue, onChange, onSubChange} : KastomizacijaClientTip){
 
     const elementiDimenzije = [
         { id: 1, label: "105×148 mm (A6)", value: "A6" },
@@ -93,21 +88,21 @@ export function KastomizacijaClient({type} : KastomizacijaClientTip){
         { id: 51, label: "februar 2027", value: "februar 2027" },
     ];
 
-    if (type === "dimenzija"){
+    if (type === "dimenzije"){
         return(
             <RadioButton
                 elements = {elementiDimenzije}
-                selectedValue = {dimenzija}
-                onChange = {setDimenzija}
+                selectedValue = {value} //prosledjeno ...
+                onChange = {onChange}
             />
         );
     }
-    if (type === "brStranica"){
+    if (type === "brojStranica"){
         return(
             <RadioButton
                 elements = {elementiBrStranica}
-                selectedValue = {brStranica}
-                onChange = {setBrStranica}
+                selectedValue = {value}
+                onChange = {onChange}
             />
         );
     }
@@ -115,8 +110,8 @@ export function KastomizacijaClient({type} : KastomizacijaClientTip){
         return(
             <RadioButton
                 elements = {elementiVrstaStranica}
-                selectedValue = {vrstaStranica}
-                onChange = {setVrstaStranica}
+                selectedValue = {value}
+                onChange = {onChange}
             />
         );
     }
@@ -125,25 +120,25 @@ export function KastomizacijaClient({type} : KastomizacijaClientTip){
           <>
             <RadioButtonImage
                 elements={elementiKorice}
-                selectedValue={korice}
-                onChange={(value) => {
-                    setKorice(value);
-                    setKoriceIzgled(null); //kada se promeni izbor tipa korica, brisu se podselekcije
+                selectedValue={value}
+                onChange={(val) => {
+                    onChange(val);
+                    if (onSubChange) onSubChange(null);
                 }}
             />
-                {korice === "patern" && (
+                {value === "patern" && onSubChange && (
                     <RadioButtonImage
                         elements={elementiKoricePatern}
-                        selectedValue={koriceIzgled}
-                        onChange={setKoriceIzgled}
+                        selectedValue={subValue ?? null}
+                        onChange={onSubChange}
                     />
                 )}
 
-                {korice === "boja" && (
+                {value === "boja" && onSubChange && (
                     <RadioButtonImage
                         elements={elementiKoriceBoja}
-                        selectedValue={koriceIzgled}
-                        onChange={setKoriceIzgled}
+                        selectedValue={subValue ?? null}
+                        onChange={onSubChange}
                     />
                 )}
           </>
@@ -153,8 +148,8 @@ export function KastomizacijaClient({type} : KastomizacijaClientTip){
         return(
             <RadioButton
                 elements = {elementiBojaStranica}
-                selectedValue = {bojaStranica}
-                onChange = {setBojaStranica}
+                selectedValue = {value}
+                onChange = {onChange}
             />
         );
     }
@@ -163,31 +158,17 @@ export function KastomizacijaClient({type} : KastomizacijaClientTip){
             <>
                 <RadioButton
                 elements = {elementiVstraKalendara}
-                selectedValue = {vrstaKalendara}
-                onChange = {(value) =>{
-                    setVrstaKalendara(value);
-                    setKalendar(null);
+                selectedValue = {value}
+                onChange = {(val) =>{
+                    onChange(val);
+                    if (onSubChange) onSubChange(null);
                 }}
                 />
-                {vrstaKalendara === "evropski" && (
+                {value && value !== "nedatumiran" && onSubChange &&(
                     <RadioButton
                         elements={elementiKalendar}
-                        selectedValue={kalendar}
-                        onChange={setKalendar}
-                    />
-                )}
-                {vrstaKalendara === "američki" && (
-                    <RadioButton
-                        elements={elementiKalendar}
-                        selectedValue={kalendar}
-                        onChange={setKalendar}
-                    />
-                )}
-                {vrstaKalendara === "kineski" && (
-                    <RadioButton
-                        elements={elementiKalendar}
-                        selectedValue={kalendar}
-                        onChange={setKalendar}
+                        selectedValue={subValue ?? null}
+                        onChange={onSubChange}
                     />
                 )}
             </>
