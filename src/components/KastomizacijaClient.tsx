@@ -3,10 +3,10 @@
 import { useState } from "react"
 import { RadioButton } from "./RadioButton";
 import { RadioButtonImage } from "./RadioButtonImage";  
-import { db } from "@/db";
+
 
 type KastomizacijaClientTip = {  //koji tip radioButton-a se trazi da vrati
-    type: "dimenzija" | "brStranica" | "vrstaStranica" | "korice";
+    type: "dimenzija" | "brStranica" | "vrstaStranica" | "korice" | "bojaStranica" | "vrstaKalendara";
 }
 
 
@@ -16,6 +16,10 @@ export function KastomizacijaClient({type} : KastomizacijaClientTip){
     const [brStranica, setBrStranica] = useState<string | null>(null);
     const [vrstaStranica, setVrstaStranica] = useState<string | null>(null);
     const [korice, setKorice] = useState<string | null> (null);
+    const [koriceIzgled, setKoriceIzgled] = useState<string | null>(null);
+    const [bojaStranica, setBojaStranica] = useState<string | null>(null);
+    const [vrstaKalendara, setVrstaKalendara] = useState<string | null>(null);
+    const [kalendar, setKalendar] = useState<string | null>(null);
 
     const elementiDimenzije = [
         { id: 1, label: "105×148 mm (A6)", value: "A6" },
@@ -41,6 +45,52 @@ export function KastomizacijaClient({type} : KastomizacijaClientTip){
         { id: 12, label: "patern", value: "patern" },   //pazi na id!
         { id: 13, label: "boja", value: "boja" },
         { id: 14, label: "koža", value: "koža" },
+    ];
+
+    const elementiKoricePatern = [
+        { id: 15, label: "flamingo", value: "flamingo" },   //pazi na id!
+        { id: 16, label: "cveće", value: "cveće" },
+        { id: 17, label: "svemir", value: "svemir" },
+        { id: 18, label: "lišće", value: "lišće" },
+        { id: 19, label: "geometrija", value: "geometrija" },
+        //...
+    ];
+
+    const elementiKoriceBoja = [
+        { id: 25, label: "bela", value: "bela" },   //pazi na id!
+        { id: 26, label: "roze", value: "roze" },
+        { id: 27, label: "plava", value: "plava" },
+        { id: 28, label: "ljubičasta", value: "ljubičasta" },
+        { id: 29, label: "zelena", value: "zelena" },
+    ];
+
+    const elementiBojaStranica = [
+        { id: 30, label: "bela", value: "bela" },
+        { id: 31, label: "svetlo roze", value: "svetlo roze" },
+        { id: 32, label: "svetlo plava", value: "svetlo plava" },
+        { id: 33, label: "svetlo zelena", value: "svetlo zelena" },
+        { id: 34, label: "svetlo ljubičasta", value: "svetlo ljubičasta" },
+    ];
+    
+    const elementiVstraKalendara = [
+        { id: 36, label: "nedatumiran", value: "nedatumiran" },
+        { id: 37, label: "evropski (dd.MM.yyyy.)", value: "evropski" },
+        { id: 38, label: "američki (MM/dd/yyyy)", value: "američki" },
+        { id: 39, label: "kineski (yyyy-MM-dd)", value: "kineski" },
+    ];
+    const elementiKalendar = [
+        { id: 40, label: "mart 2026", value: "mart 2026" },
+        { id: 41, label: "april 2026", value: "april 2026" },
+        { id: 42, label: "maj 2026", value: "maj 2026" },
+        { id: 43, label: "jun 2026", value: "jun 2026" },
+        { id: 44, label: "jul 2026", value: "jul 2026" },
+        { id: 45, label: "avgust 2026", value: "avgust 2026" },
+        { id: 46, label: "septembar 2026", value: "septembar 2026" },
+        { id: 47, label: "oktobar 2026", value: "oktobar 2026" },
+        { id: 48, label: "novembar 2026", value: "novembar 2026" },
+        { id: 49, label: "decembar 2026", value: "decembar 2026" },
+        { id: 50, label: "januar 2027", value: "januar 2027" },
+        { id: 51, label: "februar 2027", value: "februar 2027" },
     ];
 
     if (type === "dimenzija"){
@@ -72,11 +122,75 @@ export function KastomizacijaClient({type} : KastomizacijaClientTip){
     }
     if (type === "korice"){
         return(
+          <>
             <RadioButtonImage
                 elements={elementiKorice}
                 selectedValue={korice}
-                onChange={setKorice}
+                onChange={(value) => {
+                    setKorice(value);
+                    setKoriceIzgled(null); //kada se promeni izbor tipa korica, brisu se podselekcije
+                }}
             />
+                {korice === "patern" && (
+                    <RadioButtonImage
+                        elements={elementiKoricePatern}
+                        selectedValue={koriceIzgled}
+                        onChange={setKoriceIzgled}
+                    />
+                )}
+
+                {korice === "boja" && (
+                    <RadioButtonImage
+                        elements={elementiKoriceBoja}
+                        selectedValue={koriceIzgled}
+                        onChange={setKoriceIzgled}
+                    />
+                )}
+          </>
+        );
+    }
+    if (type === "bojaStranica"){
+        return(
+            <RadioButton
+                elements = {elementiBojaStranica}
+                selectedValue = {bojaStranica}
+                onChange = {setBojaStranica}
+            />
+        );
+    }
+    if (type === "vrstaKalendara"){
+        return(
+            <>
+                <RadioButton
+                elements = {elementiVstraKalendara}
+                selectedValue = {vrstaKalendara}
+                onChange = {(value) =>{
+                    setVrstaKalendara(value);
+                    setKalendar(null);
+                }}
+                />
+                {vrstaKalendara === "evropski" && (
+                    <RadioButton
+                        elements={elementiKalendar}
+                        selectedValue={kalendar}
+                        onChange={setKalendar}
+                    />
+                )}
+                {vrstaKalendara === "američki" && (
+                    <RadioButton
+                        elements={elementiKalendar}
+                        selectedValue={kalendar}
+                        onChange={setKalendar}
+                    />
+                )}
+                {vrstaKalendara === "kineski" && (
+                    <RadioButton
+                        elements={elementiKalendar}
+                        selectedValue={kalendar}
+                        onChange={setKalendar}
+                    />
+                )}
+            </>
         );
     }
 

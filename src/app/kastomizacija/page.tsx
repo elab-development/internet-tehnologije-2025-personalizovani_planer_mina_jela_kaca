@@ -28,7 +28,11 @@ export default async function Kastomizacija(){
         //onemoguci dugme dok nisu izabrane sve opcije! radiobutton-i i combobox-ovi
 
         //LOGIKA ZA DUGME DODAJ U KORPU
-        redirect("/korpa");
+        
+        //upisi podatke u cookie
+        
+        
+        //redirect("/korpa");
 
     }
 
@@ -37,14 +41,14 @@ export default async function Kastomizacija(){
 
 
     return(
-        <main className="min-h-screen bg-gray-100 font-sans bg-purple-100 flex flex-col items-center gap-2">
-            <div className="py-20 text-center">
+        <main className="min-h-screen bg-gray-100 font-sans bg-purple-100 flex flex-col items-center gap-4">
+            <div className="py-10 text-center">
                 <h1 className="text-4xl font-bold mb-1 text-purple-800">NAPRAVI SVOJ</h1>
                 <h1 className="text-4xl font-bold mb-4 text-pink-700">PERSONALIZOVANI PLANER</h1>
             </div>
 
             {/*DIV ZA DIMENZIJE*/}
-            <div className="flex flex-col items-center gap-4 border-4 border-dotted border-purple-500 rounded-lg py-8 px-20">
+            <div className="flex flex-col items-center gap-4 border-4 border-dotted border-purple-500 rounded-lg py-8 px-20 w-full">
                 <h2 className="text-lg font-bold text-purple-800">DIMENZIJE:</h2>
                 <KastomizacijaClient type="dimenzija"/>
                 
@@ -60,24 +64,26 @@ export default async function Kastomizacija(){
             </div>
 
 
-            {/*DIV ZA KORICE*/}
-            <div className="flex flex-col items-center gap-4 border-4 border-dotted border-purple-500 rounded-lg py-8 px-20">
+            {/*DIV ZA KORICE I BOJU STRANA*/}
+            <div className="flex flex-col items-center gap-4 border-4 border-dotted border-purple-500 rounded-lg py-8 px-20 w-full">
 
                 <h2 className="text-lg font-bold text-purple-800">KORICE:</h2>
                 <KastomizacijaClient type="korice"/>
 
-                {/*POD-DIV ZA KORICE*/}
-                <div></div>
+                <h2 className="text-lg font-bold text-purple-800">BOJA STRANICA:</h2>
+                <KastomizacijaClient type="bojaStranica"></KastomizacijaClient>
 
             </div>
 
 
-            {/*DIV ZA BOJU STRANICA*/}
-            <div></div>
-
-
             {/*DIV ZA KALENDAR*/}
-            <div></div>
+            <div className="flex flex-col items-center gap-4 border-4 border-dotted border-purple-500 rounded-lg py-8 px-20 w-full">
+
+                <h2 className="text-lg font-bold text-purple-800">VRSTA KALENDARA:</h2>
+                <KastomizacijaClient type="vrstaKalendara"></KastomizacijaClient>
+
+
+            </div>
 
             {/*DUGME forma*/}
             <form action={dodajUKorpu} className="text-center pb-4">
