@@ -1,0 +1,373 @@
+openapi: 3.0.0
+info:
+  title: API rute za personalizovane planere
+  version: 1.0.0
+  description: API za nasu prodavnicu personalizovanih planera
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /api/auth/login:
+    post:
+      summary: Prijava korisnika
+      description: |
+        Endpoint za autentifikaciju korisnika.
+        Provjerava username i password, vraća podatke o korisniku
+        i postavlja HTTP-only auth cookie.
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+              properties:
+                username:
+                  type: string
+                  example: marko123
+                password:
+                  type: string
+                  example: mojaLozinka123
+      responses:
+        "200":
+          description: Uspješna prijava
+          headers:
+            Set-Cookie:
+              description: HTTP-only auth token cookie
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  email:
+                    type: string
+                    example: marko@email.com
+                  ime:
+                    type: string
+                    example: Marko
+                  prezime:
+                    type: string
+                    example: Marković
+                  adresa:
+                    type: string
+                    example: Bulevar 123
+                  uloga:
+                    type: string
+                    example: korisnik
+        "401":
+          description: Neuspješna autentifikacija
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Pogresno korisnicko ime ili lozinka!
+  /api/auth/register:
+    post:
+      summary: Registracija korisnika
+      description: |
+        Kreira novog korisnika u bazi.
+        Nakon uspješne registracije automatski generiše auth token
+        i postavlja HTTP-only cookie.
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        "200":
+          description: Uspješna registracija
+          headers:
+            Set-Cookie:
+              description: HTTP-only auth token cookie
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        "400":
+          description: Greška u validaciji ili email već postoji
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /api/auth/logout:
+    post:
+      summary: Logout user
+      description: |
+        Logs out the authenticated user by clearing AUTH_COOKIE.
+        Cookie is invalidated using maxAge=0 and expires=epoch.
+      tags:
+        - Auth
+      responses:
+        "200":
+          description: Successfully logged out
+          headers:
+            Set-Cookie:
+              description: Clears authentication cookie
+              schema:
+                type: string
+                example: AUTH_COOKIE=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  ok:
+                    type: boolean
+                    example: true
+        "500":
+          description: Server error 
+
+  /api/auth/admin/korisnici:
+    get:
+      summary: Dohvati sve korisnike
+      description: |
+        Vraća listu svih registrovanih korisnika iz baze, sortiranu po datumu kreiranja.
+      tags:
+        - Korisnici
+      responses:
+        "200":
+          description: Lista korisnika
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/UserResponse'
+                    example:
+                      - id: 1
+                        username: marko123
+                        email: marko@email.com
+                        ime: Marko
+                        prezime: Marković
+                        adresa: Bulevar Oslobođenja 12
+                        uloga: ulogovani
+                      - id: 2
+                        username: ana456
+                        email: ana@email.com
+                        ime: Ana
+                        prezime: Petrović
+                        adresa: Ulica 45
+                        uloga: ulogovani
+        "500":
+          description: Greška servera
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Došlo je do greške na serveru!
+
+  /api/auth/korisnik-brisanje:
+    delete:
+      summary: Obriši korisnika (admin only)
+      description: |
+        Omogućava adminu da obriše korisnika po `userID`.
+        Endpoint zahteva validan auth cookie i admin privilegije.
+      tags:
+        - Korisnici
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userID
+              properties:
+                userID:
+                  type: integer
+                  example: 1
+      responses:
+        "200":
+          description: Korisnik uspešno obrisan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "400":
+          description: Nedostaje userID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Nema userID
+        "401":
+          description: Nije autentifikovan
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Nije autentifikovan
+        "403":
+          description: Zabranjen pristup korisniku (nije admin)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Zabranjen pristup korisniku
+        "500":
+          description: Greška servera
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Došlo je do greške na serveru
+  /api/auth/me:
+    get:
+      summary: Dohvati trenutno ulogovanog korisnika
+      description: |
+        Vraća informacije o trenutno autentifikovanom korisniku.
+        Ako nije ulogovan, vraća null.
+      tags:
+        - Auth
+      security:
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Podaci o korisniku ili null
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    oneOf:
+                      - $ref: '#/components/schemas/UserResponse'
+                      - type: "null"
+                    example:
+                      id: 1
+                      username: marko123
+                      email: marko@email.com
+                      ime: Marko
+                      prezime: Marković
+                      adresa: Bulevar Oslobođenja 12
+                      uloga: ulogovani
+        "401":
+          description: Nevalidan ili istekao token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    type: "null"
+                    example: null
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: AUTH_COOKIE
+
+  schemas:
+
+    RegisterRequest:
+      type: object
+      required:
+        - username
+        - email
+        - ime
+        - prezime
+        - adresa
+        - password
+      properties:
+        username:
+          type: string
+          example: marko123
+        email:
+          type: string
+          format: email
+          example: marko@email.com
+        ime:
+          type: string
+          example: Marko
+        prezime:
+          type: string
+          example: Marković
+        adresa:
+          type: string
+          example: Bulevar Oslobođenja 12
+        password:
+          type: string
+          format: password
+          example: mojaLozinka123
+        uloga:
+          type: string
+          example: ulogovani
+          description: Ignoriše se u backendu (uvijek se postavlja na "ulogovani")
+
+    UserResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        username:
+          type: string
+          example: marko123
+        email:
+          type: string
+          example: marko@email.com
+        ime:
+          type: string
+          example: Marko
+        prezime:
+          type: string
+          example: Marković
+        adresa:
+          type: string
+          example: Bulevar Oslobođenja 12
+        uloga:
+          type: string
+          example: ulogovani
+
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Email postoji u bazu!
+
