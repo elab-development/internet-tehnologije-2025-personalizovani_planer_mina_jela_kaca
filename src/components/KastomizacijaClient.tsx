@@ -24,7 +24,7 @@ export function KastomizacijaClient({type, value, subValue, onChange, onSubChang
     ];
 
     const elementiBrStranica = [
-        { id: 5, label: "90 listova / 180 stranica", value: "90" },   //pazi na id!
+        { id: 5, label: "90 listova / 180 stranica", value: "180" },   //pazi na id!
         { id: 6, label: "140 listova / 280 stranica", value: "280" },
         { id: 7, label: "170 listova / 340 stranica", value: "340" },
     ];
@@ -123,7 +123,7 @@ export function KastomizacijaClient({type, value, subValue, onChange, onSubChang
                 selectedValue={value}
                 onChange={(val) => {
                     onChange(val);
-                    if (onSubChange) onSubChange(null);
+                    if (onSubChange) onSubChange(null); //resetuje vrednost
                 }}
             />
                 {value === "patern" && onSubChange && (

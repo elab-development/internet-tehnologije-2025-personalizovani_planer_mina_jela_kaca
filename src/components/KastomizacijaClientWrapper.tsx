@@ -35,19 +35,50 @@ export function KastomizacijaClientWrapper({token}: TipToken){
             (korice !== "koža" && !koriceIzgled) || !bojaStranica || !vrstaKalendara ||
             (vrstaKalendara !== "nedatumiran" && !kalendar)
         ){
-            //JSON? ne alert??
-            alert("Sva obavezna polja moraju biti izabrana (sve osim posvete)");
+            alert("Morate popuniti sva polja!! [Osim posvete]");
             return;
         }
 
-        //izracunaj cenu: cena = ...
+        //izracunaj cenu:
+        let cenaDimenzije: number = 0;
+        switch(dimenzije){
+            case "A6": cenaDimenzije = 600;
+                break;
+            case "B6": cenaDimenzije = 700;
+                break;
+            case "A5": cenaDimenzije = 800;
+                break;
+            case "A4": cenaDimenzije = 900;
+                break;
+        }
+
+        let cenaBrojStr: number = 0;
+        switch(brojStranica){
+            case "180": cenaBrojStr = cenaDimenzije * 2;
+                break;
+            case "280": cenaBrojStr = cenaDimenzije * 3;
+                break;
+            case "340": cenaBrojStr = cenaDimenzije * 4;
+                break;
+        }
+
+        let cena: number = 0;
+        switch(korice){
+            case "patern": cena = cenaBrojStr + 250.99;
+                break;
+            case "boja": cena = cenaBrojStr + 150.99;
+                break;
+            case "koža": cena = cenaBrojStr + 450.99;
+                break;
+        }
+               
 
         const planer = {
             dimenzije, brojStranica, vrstaStranica, korice, 
             koriceIzgled: korice === "koža" ? "" : koriceIzgled,
             bojaStranica, vrstaKalendara,
             kalendar: vrstaKalendara === "nedatumiran" ? "" : kalendar,
-            posveta
+            posveta, cena
         };
 
         console.log(planer);
@@ -96,7 +127,7 @@ export function KastomizacijaClientWrapper({token}: TipToken){
                     onSubChange={setKoriceIzgled} 
                 />
 
-                <h2 className="text-lg font-bold text-purple-800">BOJA STRANICA:</h2>
+                <h2 className="text-lg font-bold text-purple-800">BOJA STRANICA(LISTOVA):</h2>
                 <KastomizacijaClient type="bojaStranica" value={bojaStranica} onChange={setBojaStranica} />
             </div>
 
