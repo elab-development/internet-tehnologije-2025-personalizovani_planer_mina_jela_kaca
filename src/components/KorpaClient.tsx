@@ -6,7 +6,11 @@ import React from "react"
 export default function KorpaClient(){
     const {korpa, removeProizvod} = useKorpa();
 
+    //reduce prolazi kroz niz vrednosti i sabira ih --> pocetna vrednost je 0
     const ukupno = korpa.reduce((sum, item) => sum + item.data.cena, 0);
+
+    //kao string! Ukupna cena ne treba da prikazuje više od 2 decimale 
+    const ukupnoString = ukupno.toFixed(2);
 
     if(korpa.length === 0){
         return <p className="text-gray-900">Korpa je prazna \(^-^)/</p>
@@ -56,7 +60,7 @@ export default function KorpaClient(){
             ))}
 
             <div className="mt-6 p-4 border-3 border-dotted border-purple-800 rounded-lg bg-purple-100">
-                <p className="text-xl font-bold text-grey-900"> <strong className="text-pink-600">Ukupno: </strong>{ukupno} RSD</p>
+                <p className="text-xl font-bold text-grey-900"> <strong className="text-pink-600">Ukupno: </strong>{ukupnoString} RSD</p>
                 <button className="mt-2 bg-pink-500 hover:bg-pink-700 text-white px-3 py-2 rounded w-full">
                     IDI NA PLAĆANJE (ONCLICK NIJE GOTOV)
                 </button>
