@@ -3,12 +3,16 @@
 import React, { useState } from "react";
 import { redirect } from "next/navigation";
 import { KastomizacijaClient } from "./KastomizacijaClient";
+import { useKorpa } from "@/app/context/KorpaContext";
+import { date } from "drizzle-orm/mysql-core";
 
 type TipToken = {
     token: string | null;
 };
 
 export function KastomizacijaClientWrapper({token}: TipToken){
+
+    const { addProizvod } = useKorpa();
 
     const [dimenzije, setDimenzije] = useState<string|null>(null);
     const [brojStranica, setBrojStranica] = useState<string|null>(null);
@@ -73,7 +77,7 @@ export function KastomizacijaClientWrapper({token}: TipToken){
         }
                
 
-        const planer = {
+        const planerData = {
             dimenzije, brojStranica, vrstaStranica, korice, 
             koriceIzgled: korice === "koža" ? "" : koriceIzgled,
             bojaStranica, vrstaKalendara,
@@ -81,9 +85,12 @@ export function KastomizacijaClientWrapper({token}: TipToken){
             posveta, cena
         };
 
-        console.log(planer);
-        //COOKIE momenat
-        //redirect u korpu momenat
+        console.log(planerData);
+        addProizvod({
+            tip: "planer",
+            data: planerData
+        });
+        redirect("/korpa");
 
     }
 
