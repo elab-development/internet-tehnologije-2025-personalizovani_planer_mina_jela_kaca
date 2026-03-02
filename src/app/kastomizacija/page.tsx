@@ -6,14 +6,7 @@ import { KastomizacijaClientWrapper } from "@/components/KastomizacijaClientWrap
 
 
 export default async function Kastomizacija(){
-
-    //PROVERA DA LI JE ULOGOVAN -- AKO NIJE NE MOZE DA DODA STVARI U KORPU!!!!
-
-    //CENAAA - koja se menja tj. izracuna se kada korisnik pritisne dugme dodaj u korpu,
-    //prolazi kroz opcije i uzima potrebne info
-    //ta cena se upisuje u bazu kod planera
-
-
+    
     const kolac = await cookies();
     const token = kolac.get(AUTH_COOKIE)?.value;
    
