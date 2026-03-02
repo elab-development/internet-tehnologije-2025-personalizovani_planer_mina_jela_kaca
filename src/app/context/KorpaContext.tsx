@@ -58,7 +58,6 @@ export function KorpaProvider({children}: {children: React.ReactNode }){
 
 export function useKorpa(){
     const context = useContext(KorpaContext);
-    //JSON
     if(!context) throw new Error("useKorpa mora biti unutar KorpaProvider");
     return context;
 }
