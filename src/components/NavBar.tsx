@@ -25,27 +25,27 @@ export function NavBar (){
 
     return(
 
-        <nav className="sticky top-0 w-full flex items-center justify-around py-5 px-24 border-b border-violet-300 bg-black font-bold text-[20px] z-1200">
-            <p className="text-pink-500">Perpl</p>
+        <nav className="sticky top-0 w-full flex items-center justify-around py-5 px-24 border-b border-violet-300 bg-purple-700 font-bold text-[20px] z-1200 text-white">
+            <p className="text-pink-200 font-bold text-4xl">Perpl</p>
 
             <ul className="flex gap-10 text-lg">
-                <Link className = "text-violet-400" rel="stylesheet" href="/"> Početna </Link>
+                <Link rel="stylesheet" href="/"> Početna </Link>
                 
-                <Link className = "text-violet-400" rel="stylesheet" href="/kastomizacija"> Napravi svoj </Link>
+                <Link rel="stylesheet" href="/kastomizacija"> Napravi svoj </Link>
                 
-                <Link className = "text-violet-400" rel="stylesheet" href="/prodavnica"> Prodavnica </Link>
+                <Link rel="stylesheet" href="/prodavnica"> Prodavnica </Link>
 
-                <Link className = "text-violet-400" rel="stylesheet" href="/korpa"> Korpa </Link>
+                <Link rel="stylesheet" href="/korpa"> Korpa </Link>
 
 
 
                 {/*Ovo je CHECKOUT - ne trab da stoji u navbaru nego se prilazi iz Korpe */}
-                <Link className = "text-violet-400" rel="stylesheet" href="/placanje"> Placanje </Link>
+                <Link rel="stylesheet" href="/placanje"> Placanje </Link>
 
 
                 {/*admin strana gde su narudzbenice i korisnici, samo admin je vidi*/}
                 {isAdmin &&
-                    <Link className = "text-purple-900" rel="stylesheet" href="/admin-strana"> Admin </Link>
+                    <Link rel="stylesheet" href="/admin-strana"> Admin </Link>
                 }
 
                 {/*Prijava ili Profil*/}
