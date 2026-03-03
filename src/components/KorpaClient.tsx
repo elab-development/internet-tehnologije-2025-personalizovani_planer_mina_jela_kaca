@@ -23,7 +23,7 @@ export default function KorpaClient(){
                   <div>
                     {item.tip === "planer" && (
                      <>
-                        <h2 className="font-bold text-purple-800 text-xl text-left">Planer</h2>
+                        <h2 className="font-bold text-purple-800 text-xl">Planer</h2>
                         <p className="text-left"><strong>Dimenzije: </strong>{item.data.dimenzije} {" "}
                             <strong>Broj stranica: </strong>{item.data.brojStranica} {" "}
                             <strong>Vrsta stranica: </strong>{item.data.vrstaStranica} {" "}
@@ -42,7 +42,7 @@ export default function KorpaClient(){
                     )}
                     {item.tip === "stiker" && (
                      <>
-                        <h2 className="font-bold text-purple-800">Stiker</h2>
+                        <h2 className="font-bold text-purple-800 text-xl">Stiker</h2>
                         <p className="text-left"><strong>Opis: </strong>{item.data.opis}</p>
                         <p className="font-semibold text-right text-lg"><strong className="text-pink-500">Cena: </strong>{item.data.cena} RSD</p>
                      </>
@@ -51,7 +51,7 @@ export default function KorpaClient(){
                 
                 <button
                     onClick={() => removeProizvod(index)}
-                    className="bg-purple-400 text-white px-3 py-1 rounded h-fit hover:bg-purple-500">
+                    className="bg-purple-400 text-white px-3 py-1 rounded hover:bg-purple-500">
                     Ukloni proizvod iz korpe
                 </button>
 
@@ -59,7 +59,7 @@ export default function KorpaClient(){
                 
             ))}
 
-            <div className="mt-6 p-4 border-3 border-dotted border-purple-800 rounded-lg bg-purple-100">
+            <div className="mt-6 p-4 border-3 border-solid border-purple-800 rounded-lg bg-purple-100">
                 <p className="text-xl font-bold text-grey-900"> <strong className="text-pink-600">Ukupno: </strong>{ukupnoString} RSD</p>
                 <button className="mt-2 bg-pink-500 hover:bg-pink-700 text-white px-3 py-2 rounded w-full">
                     IDI NA PLAĆANJE (ONCLICK NIJE GOTOV)

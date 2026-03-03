@@ -4,6 +4,7 @@ import TextBox from "@/components/TextBox";
 import { mockProizvodi } from "@/mock/data";
 import { db } from "@/db";
 import { stikerTabela } from "@/db/schema";
+import Link from "next/link";
 
 const BrojProizvoda = 3; //za paginaciju, koliko moze u jednom trenutku
 
@@ -39,7 +40,7 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
 
         <div className="col-span-full flex justify-center items-center mt-8 gap-2">
           {Array.from({ length: totalPages }, (_, i) => (
-          <a
+          <Link
             key={i}
               href={`?page=${i + 1}`}
               className={`px-3 py-1 rounded ${
@@ -47,7 +48,7 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
               }`}
             >
             {i + 1}
-          </a>
+          </Link>
           ))}
         </div>
         </section>
