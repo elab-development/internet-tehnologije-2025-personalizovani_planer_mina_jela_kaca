@@ -295,6 +295,80 @@ paths:
                     type: "null"
                     example: null
 
+  /api/auth/admin/promeni-ulogu:
+    put:
+      summary: Promeni ulogu korisnika (admin only)
+      description: |
+        Omogućava adminu da promeni ulogu korisnika.
+        Ako je korisnik admin → postaje ulogovani.
+        Ako je korisnik ulogovani → postaje admin.
+        Endpoint zahteva validan AUTH_COOKIE i admin privilegije.
+      tags:
+        - Korisnici
+      security:
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userID
+              properties:
+                userID:
+                  type: integer
+                  example: 1
+      responses:
+        "200":
+          description: Uloga uspešno promenjena
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+        "400":
+          description: Nedostaje userID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Nema userID
+        "401":
+          description: Nije autentifikovan
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Nije autentifikovan
+        "403":
+          description: Zabranjen pristup (nije admin)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Zabranjen pristup korisniku
+        "404":
+          description: Korisnik ne postoji
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error: Korisnik ne postoji
+        "500":
+          description: Greška servera
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
 components:
   securitySchemes:
     cookieAuth:
