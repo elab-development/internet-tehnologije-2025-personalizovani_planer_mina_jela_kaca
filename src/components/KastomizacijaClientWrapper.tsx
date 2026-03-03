@@ -113,12 +113,12 @@ export function KastomizacijaClientWrapper({token}: TipToken){
                 <h2 className="text-lg font-bold text-purple-800">VRSTA STRANICA(LINIJA):</h2>
                 <KastomizacijaClient type="vrstaStranica" value={vrstaStranica} onChange={setVrstaStranica} /> 
 
-                <h2 className="font-semibold text-purple-800 pt-4">Posveta:</h2> 
+                <h2 className="font-semibold text-purple-800 pt-4">Posveta (opcionalno):</h2> 
                 <input 
                     type="text" 
-
-                    maxLength={205} 
-                    className="border-1 border-purple-800 w-full" 
+                    maxLength={30} 
+                    placeholder="Unesite tekst..."
+                    className="border-b-2 border-purple-300 focus:border-purple-600 outline-none w-full text-center py-2 transition-colors" 
                     value={posveta}
                     onChange={(e) => setPosveta(e.target.value)}
                 />
@@ -152,7 +152,7 @@ export function KastomizacijaClientWrapper({token}: TipToken){
             </div>
 
             {/* DUGME */}
-            <form onSubmit={dodajUKorpu} className="text-center pb-4">
+            <form onSubmit={dodajUKorpu} className="text-center pt-8 pb-8">
                 <button
                     type="submit"
                     className="bg-purple-600 hover:bg-pink-500 text-white rounded-lg px-3 py-3">
