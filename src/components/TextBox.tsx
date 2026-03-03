@@ -11,13 +11,20 @@ type Stiker = {
 
 type Props = {
   stiker: Stiker;
+  token: string | undefined;
 };
 
-export default function TextBox({stiker}:Props) {
+export default function TextBox({stiker, token}:Props) {
 
   const {addProizvod} = useKorpa();
 
   const handleDodavanjeStikera = () => {
+
+    //provera da li je ulogovan
+    if(!token){
+      alert("Morate da se ulogujete!");
+      return;
+    }
 
     const stikerZaKorpu = {
       tip: "stiker" as const,

@@ -1,7 +1,8 @@
 "use client"
 
 import { KorpaProizvod, useKorpa } from "@/app/context/KorpaContext"
-import React from "react"
+import { useRouter } from "next/navigation";
+
 
 export default function KorpaClient(){
     const {korpa, removeProizvod} = useKorpa();
@@ -14,6 +15,11 @@ export default function KorpaClient(){
 
     if(korpa.length === 0){
         return <p className="text-gray-900">Korpa je prazna \(^-^)/</p>
+    }
+
+    const router = useRouter();
+    function idiNaPlacanje(){
+        router.push("/placanje");
     }
 
     return(
@@ -61,8 +67,10 @@ export default function KorpaClient(){
 
             <div className="mt-6 p-4 border-3 border-solid border-purple-800 rounded-lg bg-purple-100">
                 <p className="text-xl font-bold text-grey-900"> <strong className="text-pink-600">Ukupno: </strong>{ukupnoString} RSD</p>
-                <button className="mt-2 bg-pink-500 hover:bg-pink-700 text-white px-3 py-2 rounded w-full">
-                    IDI NA PLAĆANJE (ONCLICK NIJE GOTOV)
+                <button 
+                    onClick={idiNaPlacanje}
+                    className="mt-2 bg-pink-500 hover:bg-pink-700 text-white px-3 py-2 rounded w-full">
+                    IDI NA PLAĆANJE
                 </button>
             </div>
 

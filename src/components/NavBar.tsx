@@ -38,11 +38,6 @@ export function NavBar (){
                 <Link rel="stylesheet" href="/korpa"> Korpa </Link>
 
 
-
-                {/*Ovo je CHECKOUT - ne trab da stoji u navbaru nego se prilazi iz Korpe */}
-                <Link rel="stylesheet" href="/placanje"> Placanje </Link>
-
-
                 {/*admin strana gde su narudzbenice i korisnici, samo admin je vidi*/}
                 {isAdmin &&
                     <Link rel="stylesheet" href="/admin-strana"> Admin </Link>
