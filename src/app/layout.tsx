@@ -4,6 +4,7 @@ import "./globals.css";
 import { NavBar } from "@/components/NavBar";
 import { AuthProvider } from "@/components/AuthProvider";
 import Footer from "@/components/Footer";
+import { KorpaProvider } from "./context/KorpaContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,9 +35,11 @@ export default function RootLayout({
 
        <main className="flex-1 min-h-screen">
         <AuthProvider>
+          <KorpaProvider>
             <NavBar/>
             {children}
             <Footer></Footer>
+          </KorpaProvider>
         </AuthProvider>
         </main>
         

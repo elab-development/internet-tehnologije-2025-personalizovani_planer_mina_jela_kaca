@@ -9,10 +9,6 @@ import { redirect } from "next/navigation";
 
 export default async function AdminStrana(){
 
-    /*
-    PROVERA DA LI JE OSOBA ADMIN!!! 
-    */
-
     //provera da li je ulogovan:
     const kolac = await cookies();
     const token = kolac.get(AUTH_COOKIE)?.value;
@@ -25,8 +21,9 @@ export default async function AdminStrana(){
     const claims = verifyAuthToken(token);
     kID = claims.sub;
 
+    //k = trenutno ulogovani korisnik
     const [k] = await db
-        .select({ uloga: korisniciTabela.uloga, ime: korisniciTabela.ime, prezime: korisniciTabela.prezime })
+        .select({id: korisniciTabela.id, uloga: korisniciTabela.uloga, ime: korisniciTabela.ime, prezime: korisniciTabela.prezime })
         .from(korisniciTabela)
         .where(eq(korisniciTabela.id, kID));
 
@@ -61,9 +58,10 @@ export default async function AdminStrana(){
         <main className="min-h-screen bg-gray-100 font-sans">
             <div className="py-26 text-center">
                 <h1 className="text-4xl font-bold mb-4 text-gray-800">ADMIN STRANA</h1>
+                <h2 className="text-xl font-bold text-pink-700">Trenutno ulogovan: {k.ime} {k.prezime}</h2>
             </div>
             
-            <AdminKorisniciTabela pocetniKorisnici={korisnici}/>
+            <AdminKorisniciTabela pocetniKorisnici={korisnici} k={k}/>
 
 
         </main>

@@ -11,9 +11,9 @@ export default async function Profil(){
     }
 
     return(
-        <main className="min-h-screen bg-gray-100 font-sans">
+        <main className="min-h-screen bg-purple-100 font-sans">
             <div className="py-16 text-center">
-                <h1 className="text-4xl font-bold mb-4 text-gray-800">KORISNICKI PROFIL</h1>
+                <h1 className="text-4xl font-bold mb-4 text-gray-800">KORISNIČKI PROFIL</h1>
             </div>
         </main>
 
