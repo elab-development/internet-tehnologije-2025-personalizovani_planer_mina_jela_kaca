@@ -8,6 +8,7 @@ import { KorpaProvider } from "./context/KorpaContext";
 import "tailwindcss"
 import { Quicksand } from 'next/font/google';
 import { Roboto } from 'next/font/google';
+import { Lexend_Deca } from 'next/font/google';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,6 +28,12 @@ const quicksand = Quicksand({
 
 const roboto = Roboto({ 
   variable: "--font-roboto",
+  subsets: ['latin', 'latin-ext'], 
+  weight: ['400','700'], 
+});
+
+const lexendDeca = Lexend_Deca({ 
+  variable: "--font-lexenddeca",
   subsets: ['latin', 'latin-ext'], 
   weight: ['400','700'], 
 });

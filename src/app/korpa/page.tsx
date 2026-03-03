@@ -16,8 +16,8 @@ export default async function Korpa(){
 
     return(
         <main className="min-h-screen bg-gray-100 font-sans">
-            <div className="py-20 text-center">
-                <h1 className="text-4xl font-bold mb-4 text-purple-800 flex items-center justify-center gap-3">
+            <div className="text-center">
+                <h1 className="text-4xl font-bold mb-4 pb-5 text-purple-800 flex items-center justify-center gap-3">
                     Korpa 
                     <Image
                         src="/korpa.svg"
