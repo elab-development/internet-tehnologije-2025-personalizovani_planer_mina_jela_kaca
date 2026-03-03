@@ -116,7 +116,7 @@ export function KastomizacijaClientWrapper({token}: TipToken){
                 <h2 className="font-semibold text-purple-800 pt-4">Posveta:</h2> 
                 <input 
                     type="text" 
-                    maxLength={30} 
+                    maxLength={205} 
                     className="border-1 border-purple-800 w-full" 
                     value={posveta}
                     onChange={(e) => setPosveta(e.target.value)}

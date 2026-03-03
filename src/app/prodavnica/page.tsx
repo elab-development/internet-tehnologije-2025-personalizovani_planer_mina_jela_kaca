@@ -5,6 +5,8 @@ import { mockProizvodi } from "@/mock/data";
 import { db } from "@/db";
 import { stikerTabela } from "@/db/schema";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { AUTH_COOKIE } from "@/lib/auth";
 
 const BrojProizvoda = 3; //za paginaciju, koliko moze u jednom trenutku
 
@@ -26,6 +28,9 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
     const startIndex = (currentPage - 1) * BrojProizvoda;
     const currentItems = dataStiker.slice(startIndex, startIndex + BrojProizvoda); /////////
   
+    //uzimamo auth token
+    const kolac = await cookies();
+    const token = kolac.get(AUTH_COOKIE)?.value;
 
     return (
       <main className=" bg-gray-100 font-sans min-h-screen">
@@ -35,7 +40,7 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
         </div>
         <section className="bg-slate-100 max-w-6xl mx-auto px-4 py-12 pb-15 grid md:grid-cols-3 gap-6 rounded-3xl">
           {currentItems.map((stiker) => (
-          <TextBox key={stiker.proizvodID} stiker={stiker} /> ////prosledjujemo sve stikere
+          <TextBox key={stiker.proizvodID} stiker={stiker} token={token} /> ////prosledjujemo sve stikere
         ))}
 
         <div className="col-span-full flex justify-center items-center mt-8 gap-2">
