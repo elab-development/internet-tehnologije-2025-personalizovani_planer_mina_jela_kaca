@@ -86,11 +86,22 @@ export default function PlacanjeClient({k}:KorisnikProps){
         <section className=" mx-auto px-4 py-12 grid gap-6 rounded-3xl w-200 mt-4">
                 <KorisnikInfo k={k}></KorisnikInfo>
         </section>
-        
+         {/*ADRESA: korisnik može da dostavi na drugu adresu*/}
+        <div className="flex flex-col items-center">
+            <form className="text-lg w-100">
+             <label className="mt-1 text-purple-900"><strong>Unesite drugu adresu za dostavu: </strong></label>
+             <input 
+                type="text"
+                name="adresa"
+                defaultValue=""
+                className="border rounded w-full text-center" 
+             /> 
+            </form>
+        </div>
         
         
         <button
-            className="w-70 bg-purple-600 rounded font-bold text-2xl text-white hover:bg-pink-500 py-2 px-3 mt-4">
+            className="mt-6 w-70 bg-purple-600 rounded font-bold text-2xl text-white hover:bg-pink-500 py-2 px-3 mt-4">
             {/*NAKON STO KLIKNE -- REFRESH!! DA IZBACI IZ KORPE STVARI!!!! */}
             PORUČI
         </button>
