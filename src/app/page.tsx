@@ -18,25 +18,33 @@ export default function Home() {
       
 
       
-      <section className="py-16 text-center">
-        <h2 className="text-4xl font-bold mt-6 mb-4 text-pink-800">PerPl</h2>
-        <section className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-3 gap-6"><p className="text-gray-600 text-lg mb-6">
-          Najfleksibilniji planer za sve Vaše potrebe. Postanite jedan od stotine zadovoljnih kupaca :)
+      <section className="text-center">
+        <h1 className="text-4xl font-bold mb-4 text-pink-700">PerPl - personalizovani planer</h1>
+        <section className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-6"><p className="text-gray-600 text-lg text-justify mb-6">
+          Najfleksibilniji planer za sve Vaše potrebe.
+          <br /> 
+          Postanite jedan od stotine zadovoljnih kupaca PerPl planera :) <br />
+          
         </p>       
-        <Image src="/heehee.jpg" alt="" width={400} height={300}
+        <Image src="/heehee.jpg" alt="naslovna strana - slika" width={400} height={300}
               className="h-40 w-full object-cover transition-transform duration-200 group-hover:scale-101"
           />
-          <ComboBox />
+          
                            
                        
 
       </section>
+
+      <section className="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <p className="text-justify text-lg">Personalizovani planer korisniku može prilagoditi dizajn i materijal korice, stanice i vrstu kalendara. <br />
+      Da biste izvršili online kupovinu, potrebno je da postanete registrovani korisnik.</p>
 
        <a href="/kastomizacija">
           <button className="bg-black text-violet-200 px-6 py-3 rounded hover:bg-pink-600 ">
             Kreiraj novi planer
           </button>
         </a> 
+      </section>
         
       </section>
 

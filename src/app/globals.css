@@ -24,3 +24,31 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer base {
+  
+  h1{
+    font-size-adjust: inherit;
+    padding-top: 3%;
+    font-size: var(--text-4xl);
+    color: var(--color-gray-800);
+    font-weight: bolder;
+    font-family: var(--font-roboto);
+  }
+
+  h2{
+    font-size-adjust: inherit;
+    padding: 1%;
+    font-size: var(--text-xl );
+    color: var(--color-gray-500);
+    font-weight: bold;
+    font-family: var(--font-roboto);
+  }
+
+  p{
+    align-content: center;
+    font-size-adjust: inherit;
+    font-family: var(--font-quicksand);
+  }
+  
+}

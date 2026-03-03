@@ -98,7 +98,7 @@ export function KastomizacijaClientWrapper({token}: TipToken){
     return(
         <main className="min-h-screen bg-gray-100 font-sans bg-purple-100 flex flex-col items-center gap-4">
             <div className="py-10 text-center">
-                <h1 className="text-4xl font-bold mb-1 text-purple-800">NAPRAVI SVOJ</h1>
+                <h1 className="text-2xl font-bold mb-1 text-purple-800">NAPRAVI SVOJ</h1>
                 <h1 className="text-4xl font-bold mb-4 text-pink-700">PERSONALIZOVANI PLANER</h1>
             </div>
 

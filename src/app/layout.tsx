@@ -5,6 +5,9 @@ import { NavBar } from "@/components/NavBar";
 import { AuthProvider } from "@/components/AuthProvider";
 import Footer from "@/components/Footer";
 import { KorpaProvider } from "./context/KorpaContext";
+import "tailwindcss"
+import { Quicksand } from 'next/font/google';
+import { Roboto } from 'next/font/google';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,6 +17,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const quicksand = Quicksand({ 
+  variable: "--font-quicksand",
+  subsets: ['latin', 'latin-ext'], 
+  weight: ['400','700'], 
+});
+
+const roboto = Roboto({ 
+  variable: "--font-roboto",
+  subsets: ['latin', 'latin-ext'], 
+  weight: ['400','700'], 
 });
 
 export const metadata: Metadata = {
@@ -29,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased flex flex-col min-h-screen`}
+        className={`${quicksand.variable} ${quicksand.variable} antialiased flex flex-col min-h-screen`}
       >
 
 
