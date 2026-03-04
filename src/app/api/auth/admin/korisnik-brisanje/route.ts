@@ -8,6 +8,7 @@ import { NextResponse } from "next/server";
 
 
 export async function DELETE(req:Request) {
+    try{
     const token = (await cookies()).get(AUTH_COOKIE)?.value;
     if(!token) return NextResponse.json({error: "Nije autentifikovan"}, {status: 401});
 
@@ -31,6 +32,9 @@ export async function DELETE(req:Request) {
 
     return NextResponse.json({success: true});
 
-    
+    }catch (err) {
+    console.error(err);
+    return NextResponse.json({ error: "Server greska LALALALALA" }, { status: 500 });
+  }
 
 }

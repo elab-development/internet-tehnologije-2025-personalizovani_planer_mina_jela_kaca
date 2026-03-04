@@ -13,7 +13,7 @@ paths:
       summary: Prijava korisnika
       description: |
         Endpoint za autentifikaciju korisnika.
-        Provjerava username i password, vraća podatke o korisniku
+        Proverava username i password, vraca podatke o korisniku
         i postavlja HTTP-only auth cookie.
       tags:
         - Auth
@@ -35,7 +35,7 @@ paths:
                   example: mojaLozinka123
       responses:
         "200":
-          description: Uspješna prijava
+          description: Uspesna prijava
           headers:
             Set-Cookie:
               description: HTTP-only auth token cookie
@@ -47,8 +47,8 @@ paths:
                 type: object
                 properties:
                   id:
-                    type: integer
-                    example: 1
+                    type: uuid
+                    example: 550e8400-e29b-41d4-a716-446655440000
                   email:
                     type: string
                     example: marko@email.com
@@ -57,15 +57,15 @@ paths:
                     example: Marko
                   prezime:
                     type: string
-                    example: Marković
+                    example: Markovic
                   adresa:
                     type: string
                     example: Bulevar 123
                   uloga:
                     type: string
-                    example: korisnik
+                    example: ulogovani
         "401":
-          description: Neuspješna autentifikacija
+          description: Neuspesna autentifikacija
           content:
             application/json:
               schema:
@@ -79,7 +79,7 @@ paths:
       summary: Registracija korisnika
       description: |
         Kreira novog korisnika u bazi.
-        Nakon uspješne registracije automatski generiše auth token
+        Nakon uspesne registracije automatski generise auth token
         i postavlja HTTP-only cookie.
       tags:
         - Auth
@@ -91,7 +91,7 @@ paths:
               $ref: '#/components/schemas/RegisterRequest'
       responses:
         "200":
-          description: Uspješna registracija
+          description: Uspesna registracija
           headers:
             Set-Cookie:
               description: HTTP-only auth token cookie
@@ -102,7 +102,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/UserResponse'
         "400":
-          description: Greška u validaciji ili email već postoji
+          description: Greska u validaciji ili email vec postoji
           content:
             application/json:
               schema:
@@ -110,18 +110,18 @@ paths:
 
   /api/auth/logout:
     post:
-      summary: Logout user
+      summary: Logout korisnika
       description: |
-        Logs out the authenticated user by clearing AUTH_COOKIE.
-        Cookie is invalidated using maxAge=0 and expires=epoch.
+        Odjavljuje autentifikovanog korisnika tako sto cisti AUTH_COOKIE.
+        Cookie je ponisten koriscenjem maxAge=0 i expires=epoch.
       tags:
         - Auth
       responses:
         "200":
-          description: Successfully logged out
+          description: Uspesno izlogovan korisnik
           headers:
             Set-Cookie:
-              description: Clears authentication cookie
+              description: Cisti authentication cookie
               schema:
                 type: string
                 example: AUTH_COOKIE=; Max-Age=0; Path=/; HttpOnly; SameSite=Lax
@@ -134,13 +134,13 @@ paths:
                     type: boolean
                     example: true
         "500":
-          description: Server error 
+          description: Server greska 
 
   /api/auth/admin/korisnici:
     get:
       summary: Dohvati sve korisnike
       description: |
-        Vraća listu svih registrovanih korisnika iz baze, sortiranu po datumu kreiranja.
+        Vraca listu svih registrovanih korisnika iz baze, sortiranu po datumu kreiranja.
       tags:
         - Korisnici
       responses:
@@ -156,22 +156,22 @@ paths:
                     items:
                       $ref: '#/components/schemas/UserResponse'
                     example:
-                      - id: 1
+                      - id: 550e8400-e29b-41d4-a716-446655440000
                         username: marko123
                         email: marko@email.com
                         ime: Marko
-                        prezime: Marković
+                        prezime: Markovic
                         adresa: Bulevar Oslobođenja 12
                         uloga: ulogovani
-                      - id: 2
+                      - id: 2550e8400-f29b-41d4-a716-446655440123
                         username: ana456
                         email: ana@email.com
                         ime: Ana
-                        prezime: Petrović
+                        prezime: Anic
                         adresa: Ulica 45
                         uloga: ulogovani
         "500":
-          description: Greška servera
+          description: Greska servera
           content:
             application/json:
               schema:
@@ -179,13 +179,13 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: Došlo je do greške na serveru!
+                    example: Doslo je do greske na serveru!
 
-  /api/auth/korisnik-brisanje:
+  /api/auth/admin/korisnik-brisanje:
     delete:
-      summary: Obriši korisnika (admin only)
+      summary: Obrisi korisnika (admin only)
       description: |
-        Omogućava adminu da obriše korisnika po `userID`.
+        Omogucava adminu da obrise korisnika po `userID`.
         Endpoint zahteva validan auth cookie i admin privilegije.
       tags:
         - Korisnici
@@ -201,11 +201,11 @@ paths:
                 - userID
               properties:
                 userID:
-                  type: integer
-                  example: 1
+                  type: uuid
+                  example: 550e8400-e29b-41d4-a716-446655440000
       responses:
         "200":
-          description: Korisnik uspešno obrisan
+          description: Korisnik uspesno obrisan
           content:
             application/json:
               schema:
@@ -245,7 +245,7 @@ paths:
                     type: string
                     example: Zabranjen pristup korisniku
         "500":
-          description: Greška servera
+          description: Greska servera
           content:
             application/json:
               schema:
@@ -253,13 +253,13 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: Došlo je do greške na serveru
+                    example: Doslo je do greske na serveru
   /api/auth/me:
     get:
       summary: Dohvati trenutno ulogovanog korisnika
       description: |
-        Vraća informacije o trenutno autentifikovanom korisniku.
-        Ako nije ulogovan, vraća null.
+        Vraca informacije o trenutno autentifikovanom korisniku.
+        Ako nije ulogovan, vraca null.
       tags:
         - Auth
       security:
@@ -277,11 +277,11 @@ paths:
                       - $ref: '#/components/schemas/UserResponse'
                       - type: "null"
                     example:
-                      id: 1
+                      id: 550e8400-e29b-41d4-a716-446655440000
                       username: marko123
                       email: marko@email.com
                       ime: Marko
-                      prezime: Marković
+                      prezime: Markovic
                       adresa: Bulevar Oslobođenja 12
                       uloga: ulogovani
         "401":
@@ -295,13 +295,13 @@ paths:
                     type: "null"
                     example: null
 
-  /api/auth/admin/promeni-ulogu:
+  /api/auth/admin/korisnik-uloga:
     put:
       summary: Promeni ulogu korisnika (admin only)
       description: |
-        Omogućava adminu da promeni ulogu korisnika.
-        Ako je korisnik admin → postaje ulogovani.
-        Ako je korisnik ulogovani → postaje admin.
+        Omogucava adminu da promeni ulogu korisnika.
+        Ako je korisnik admin - postaje ulogovani.
+        Ako je korisnik ulogovani - postaje admin.
         Endpoint zahteva validan AUTH_COOKIE i admin privilegije.
       tags:
         - Korisnici
@@ -317,11 +317,11 @@ paths:
                 - userID
               properties:
                 userID:
-                  type: integer
-                  example: 1
+                  type: uuid
+                  example: 550e8400-e29b-41d4-a716-446655440000
       responses:
         "200":
-          description: Uloga uspešno promenjena
+          description: Uloga uspesno promenjena
           content:
             application/json:
               schema:
@@ -363,7 +363,7 @@ paths:
               example:
                 error: Korisnik ne postoji
         "500":
-          description: Greška servera
+          description: Greska servera
           content:
             application/json:
               schema:
@@ -400,10 +400,10 @@ components:
           example: Marko
         prezime:
           type: string
-          example: Marković
+          example: Markovic
         adresa:
           type: string
-          example: Bulevar Oslobođenja 12
+          example: Bulevar 123
         password:
           type: string
           format: password
@@ -411,14 +411,14 @@ components:
         uloga:
           type: string
           example: ulogovani
-          description: Ignoriše se u backendu (uvijek se postavlja na "ulogovani")
+          description: Ignorise se u backendu (uvijek se postavlja na "ulogovani")
 
     UserResponse:
       type: object
       properties:
         id:
-          type: integer
-          example: 1
+          type: uuid
+          example: 550e8400-e29b-41d4-a716-446655440000
         username:
           type: string
           example: marko123
@@ -430,10 +430,10 @@ components:
           example: Marko
         prezime:
           type: string
-          example: Marković
+          example: Markovic
         adresa:
           type: string
-          example: Bulevar Oslobođenja 12
+          example: Bulevar 123
         uloga:
           type: string
           example: ulogovani
@@ -443,5 +443,5 @@ components:
       properties:
         error:
           type: string
-          example: Email postoji u bazu!
+          example: Email postoji u bazu! 
 
