@@ -43,12 +43,12 @@ export const planerTabela = pgTable("planer", {
     brojStranica: integer(),
     dimenzije: varchar({enum: ["A6", "B6", "A5", "A4"]}),
     bojaStranica: varchar({enum: ["bela", "svetlo roze", "svetlo plava", "svetlo zelena", "svetlo ljubičasta"]}), 
-    vrstaKalendara: varchar({enum: ["dd.MM.yyyy.", "MM-dd-yyyy", "yyyy/MM/dd"]}),
+    vrstaKalendara: varchar("vrsta kalendara", {length:100}),
     kalendar: varchar("kalendar", {length: 100}), //npr: januar 2026 ... maj2026 ...
     vrstaStranica: varchar({enum: ["linije", "kocke", "tacke", "prazno"]}),
     cena: real(),
     ////
-    proizvodID: uuid("proizvodID").references(()=>proizvodTabela.id), //fk ka Proizvod
+    proizvodID: uuid("proizvodID").primaryKey().references(()=>proizvodTabela.id), //fk ka Proizvod
     koriceID: uuid("koriceID").notNull().references(()=>koriceTabela.id),
     createdAt: timestamp("created_at").defaultNow(),
 })
@@ -63,6 +63,6 @@ export const koriceTabela = pgTable("korice", {
 export const stikerTabela = pgTable("stiker", {
     opis: varchar("opis", {length: 255}),
     cena: real(),
-    proizvodID: uuid("proizvodID").references(()=>proizvodTabela.id),   //fk ka Proizvodu
+    proizvodID: uuid("proizvodID").primaryKey().references(()=>proizvodTabela.id),   //fk ka Proizvodu
     createdAt: timestamp("created_at").defaultNow(),
 })

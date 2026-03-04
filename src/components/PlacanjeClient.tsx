@@ -2,7 +2,7 @@
 
 import { KorpaProizvod, useKorpa } from "@/app/context/KorpaContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import KorisnikInfo from "./KorisnikInfo";
 
 type Korisnik = {
@@ -19,8 +19,10 @@ type KorisnikProps = {
 }
 
 export default function PlacanjeClient({k}:KorisnikProps){
-
-    const {korpa} = useKorpa();
+    
+    const {korpa, removeAllProizvod} = useKorpa();
+    const [ptt, setPtt] = useState("");
+    const [novaAdresa, setNovaAdresa] = useState("");
 
     //?
     const router = useRouter();
@@ -38,6 +40,100 @@ export default function PlacanjeClient({k}:KorisnikProps){
 
     const ukupno = korpa.reduce((sum, item) => sum + item.data.cena, 0);
     const ukupnoString = ukupno.toFixed(2);
+
+    //--------------------------------------------------DUGME-------------------------------------------
+    const handlePoruci = async () => {
+        if(ptt === ""){
+            alert("PTT polje je obavezno!");
+            return;
+        }
+        const adresaZaDostavu = novaAdresa || k.adresa;
+
+        //narudžbenica
+        const narudzbenicaRes = await fetch("/api/auth/placanje/narudzbenica", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                adresa: adresaZaDostavu,
+                pttBroj: Number(ptt),
+                ukupnaCena: ukupno,
+                korisnikID: k.id
+            })
+        });
+        const narudzbenica = await narudzbenicaRes.json();
+        
+        for(const item of korpa){
+            let proizvodID: string = "";
+
+            if(item.tip === "planer"){  //------------PLANER------------
+                //proizvod
+                const proizvodRes = await fetch("/api/auth/placanje/proizvod", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ tip: "planer"})
+                });
+                const proizvod = await proizvodRes.json();
+                //korice
+                const koriceRes = await fetch("/api/auth/placanje/korice", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        tip: item.data.korice as "boja" | "patern" | "koža",
+                        izgled: item.data.koriceIzgled
+                    })
+                });
+                const korice = await koriceRes.json();
+                //planer
+                const planerRes = await fetch("/api/auth/placanje/planer", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        posveta: item.data.posveta,
+                        brojStranica: item.data.brojStranica,
+                        dimenzije: item.data.dimenzije,
+                        bojaStranica: item.data.bojaStranica,
+                        vrstaKalendara: item.data.vrstaKalendara,
+                        kalendar: item.data.kalendar,
+                        vrstaStranica: item.data.vrstaStranica,
+                        cena: item.data.cena,
+                        proizvodID: proizvod.id,
+                        koriceID: korice.id
+                    })
+                });
+                const planer = await planerRes.json();
+                proizvodID = planer.id;
+            }
+            else if(item.tip === "stiker"){  //------------STIKER------------
+                
+                //params jer nema body kod GET api zahteva!! A treba nam request za where uslov :)
+                const params = new URLSearchParams({ //interfejs
+                    opis: item.data.opis,
+                });
+
+                const stikerRes = await fetch(`/api/auth/placanje/stiker?${params.toString()}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" },
+                });
+                const stiker = await stikerRes.json();
+                proizvodID = stiker.id;
+            }
+            //NAPRAVI STAVKU NARUDŽBENICE za proizvod
+            const stavkaRes = await fetch("/api/auth/placanje/stavka-narudzbenice", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    cena: item.data.cena,
+                    narudzbenicaID: narudzbenica.id,
+                    proizvodID: proizvodID
+                })
+            });
+            const stavka = await stavkaRes.json();
+        }
+        
+        alert("Uspešno poručivanje proizvoda!");
+        removeAllProizvod();
+    } 
+
 
     return(
         <div>
@@ -86,23 +182,32 @@ export default function PlacanjeClient({k}:KorisnikProps){
         <section className=" mx-auto px-4 py-12 grid gap-6 rounded-3xl w-200 mt-4">
                 <KorisnikInfo k={k}></KorisnikInfo>
         </section>
-         {/*ADRESA: korisnik može da dostavi na drugu adresu*/}
+
         <div className="flex flex-col items-center">
             <form className="text-lg w-100">
+             <label className="mt-1 text-purple-900"><strong>Unesite PTT broj: </strong></label>
+             <input 
+                type="text"
+                name="ptt"
+                defaultValue=""
+                className="border rounded w-full text-center"
+                onChange={(e) => setPtt(e.target.value)}
+             />
              <label className="mt-1 text-purple-900"><strong>Unesite drugu adresu za dostavu: </strong></label>
              <input 
                 type="text"
                 name="adresa"
                 defaultValue=""
-                className="border rounded w-full text-center" 
+                className="border rounded w-full text-center"
+                onChange={(e) => setNovaAdresa(e.target.value)} 
              /> 
             </form>
         </div>
         
         
         <button
+        onClick={handlePoruci}
             className="mt-6 w-70 bg-purple-600 rounded font-bold text-2xl text-white hover:bg-pink-500 py-2 px-3 mt-4">
-            {/*NAKON STO KLIKNE -- REFRESH!! DA IZBACI IZ KORPE STVARI!!!! */}
             PORUČI
         </button>
         </div>

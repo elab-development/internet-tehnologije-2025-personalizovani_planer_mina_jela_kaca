@@ -33,6 +33,7 @@ type KorpaContextType = {
     korpa: KorpaProizvod[];
     addProizvod: (proizvod: KorpaProizvod) => void;
     removeProizvod: (index: number) => void;
+    removeAllProizvod: () => void;
 };
 
 const KorpaContext = createContext<KorpaContextType | undefined>(undefined);
@@ -49,8 +50,12 @@ export function KorpaProvider({children}: {children: React.ReactNode }){
         setKorpa((prev) => prev.filter((_,i)=> i !== index));
     }
 
+    function removeAllProizvod(){
+        setKorpa([]);
+    }
+
     return(
-        <KorpaContext.Provider value={{korpa, addProizvod, removeProizvod}}>
+        <KorpaContext.Provider value={{korpa, addProizvod, removeProizvod, removeAllProizvod}}>
             {children}
         </KorpaContext.Provider>
     );
