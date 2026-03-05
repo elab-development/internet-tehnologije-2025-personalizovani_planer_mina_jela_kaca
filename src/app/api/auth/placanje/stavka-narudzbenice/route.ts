@@ -9,6 +9,18 @@ type Stavka = {
     proizvodID: string;
 }
 
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Credentials": "true",
+    },
+  });
+}
+
 export async function POST(req: Request){
 
     const {cena, narudzbenicaID, proizvodID} = (await req.json()) as Stavka;
