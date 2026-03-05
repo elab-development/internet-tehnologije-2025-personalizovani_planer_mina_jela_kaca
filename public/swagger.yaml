@@ -161,7 +161,7 @@ paths:
                         email: marko@email.com
                         ime: Marko
                         prezime: Markovic
-                        adresa: Bulevar Oslobođenja 12
+                        adresa: Bulevar 123
                         uloga: ulogovani
                       - id: 2550e8400-f29b-41d4-a716-446655440123
                         username: ana456
@@ -282,7 +282,7 @@ paths:
                       email: marko@email.com
                       ime: Marko
                       prezime: Markovic
-                      adresa: Bulevar Oslobođenja 12
+                      adresa: Bulevar 123
                       uloga: ulogovani
         "401":
           description: Nevalidan ili istekao token

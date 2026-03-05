@@ -15,6 +15,18 @@ type Body = {
     uloga: string;
 }
 
+export async function OPTIONS() {
+  return new NextResponse(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "http://localhost:3000",
+      "Access-Control-Allow-Methods": "GET, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Credentials": "true",
+    },
+  });
+}
+
 export async function POST(req: Request){
     
     //uzeli smo iz requesta sifru i email i formatirali prema body tj tipu Body
