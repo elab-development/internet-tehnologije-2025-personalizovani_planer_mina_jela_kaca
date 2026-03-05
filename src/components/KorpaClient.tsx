@@ -39,7 +39,7 @@ export default function KorpaClient(){
                         </p>
                         <p className="text-left">
                             <strong>Vrsta kalendara: </strong>{item.data.vrstaKalendara} {" "}
-                            <strong>Kalendar: </strong>{item.data.kalendar || "-"} {" "}
+                            <strong>Kalendar: </strong>{item.data.kalendar || "-"} {"-"}
                             <strong>Posveta: </strong>{item.data.posveta || "-"}
                         </p>
                         

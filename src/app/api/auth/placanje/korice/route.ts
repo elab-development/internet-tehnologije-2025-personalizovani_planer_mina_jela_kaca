@@ -1,12 +1,8 @@
 import { db } from "@/db";
 import { koriceTabela } from "@/db/schema";
+import { and, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-type Korice = {
-    //id treba da se generise
-    tip: "patern" | "boja" | "koža";
-    izgled: string | null;
-}
 
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -20,18 +16,28 @@ export async function OPTIONS() {
   });
 }
 
-export async function POST(req: Request){
+export async function GET(req: Request){
 
-    const {tip, izgled} = (await req.json()) as Korice;
+    const {searchParams} = new URL(req.url);
+    const tip = (searchParams.get("tip")) as "patern" | "boja" | "koža";
+    let izgled = searchParams.get("izgled");
 
-    if(!tip){
+    if(tip === "koža"){
+      izgled = "-";
+    }
+
+    if(!tip || !izgled){
         return NextResponse.json({error: "Nema podataka!"}, {status: 400})
     }
 
     
-    const [k] = await db.insert(koriceTabela)
-        .values({tip, izgled})
-        .returning({id: koriceTabela.id, tip: koriceTabela.tip, izgled: koriceTabela.izgled})
+    const [k] = await db
+        .select({id: koriceTabela.id})
+        .from(koriceTabela)
+        .where(and(
+          eq(koriceTabela.tip, tip), 
+          eq(koriceTabela.izgled, izgled))
+        );
 
 
     const res = NextResponse.json(k)

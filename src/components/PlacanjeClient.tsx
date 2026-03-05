@@ -1,7 +1,7 @@
 "use client"
 
 import { KorpaProizvod, useKorpa } from "@/app/context/KorpaContext";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import KorisnikInfo from "./KorisnikInfo";
 
@@ -74,15 +74,17 @@ export default function PlacanjeClient({k}:KorisnikProps){
                 });
                 const proizvod = await proizvodRes.json();
                 //korice
-                const koriceRes = await fetch("/api/auth/placanje/korice", {
-                    method: "POST",
+                //params jer nema body kod GET api zahteva!! A treba nam request za where uslov :)
+                const paramsK = new URLSearchParams({ //interfejs
+                    tip: item.data.korice as "boja" | "patern" | "koža",
+                    izgled: item.data.koriceIzgled ?? "-"
+                });
+                const koriceRes = await fetch(`/api/auth/placanje/korice?${paramsK.toString()}`, {
+                    method: "GET",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        tip: item.data.korice as "boja" | "patern" | "koža",
-                        izgled: item.data.koriceIzgled
-                    })
                 });
                 const korice = await koriceRes.json();
+
                 //planer
                 const planerRes = await fetch("/api/auth/placanje/planer", {
                     method: "POST",
@@ -131,7 +133,9 @@ export default function PlacanjeClient({k}:KorisnikProps){
         }
         
         alert("Uspešno poručivanje proizvoda!");
+        redirect("/");
         removeAllProizvod();
+
     } 
 
 
