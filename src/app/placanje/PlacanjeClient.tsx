@@ -3,7 +3,7 @@
 import { KorpaProizvod, useKorpa } from "@/app/context/KorpaContext";
 import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import KorisnikInfo from "./KorisnikInfo";
+import KorisnikInfo from "../../components/KorisnikInfo";
 
 type Korisnik = {
     id: string;
@@ -24,15 +24,15 @@ export default function PlacanjeClient({k}:KorisnikProps){
     const [ptt, setPtt] = useState("");
     const [novaAdresa, setNovaAdresa] = useState("");
 
-    //?
     const router = useRouter();
+    const [placanjeZavrseno, setPlacanjeZavrseno] = useState(false);
 
     //da se ne bi menjalo stanje tokom renderovanja komponente --> koristimo useEffect
     useEffect(() => {       
-        if (korpa.length === 0) {
+        if (korpa.length === 0 && !placanjeZavrseno) {
             router.replace("/korpa");
         }
-    }, [korpa, router]);
+    }, [korpa, placanjeZavrseno, router]);
     //ako pokusa da renderuje dok traje router.replace(redirect)
     if (korpa.length === 0) {
         return null;
@@ -43,10 +43,15 @@ export default function PlacanjeClient({k}:KorisnikProps){
 
     //--------------------------------------------------DUGME-------------------------------------------
     const handlePoruci = async () => {
+        if (ptt.length !== 5) {
+            alert("PTT broj mora imati tačno 5 cifara!");
+            return;
+        }
         if(ptt === ""){
             alert("PTT polje je obavezno!");
             return;
         }
+        
         const adresaZaDostavu = novaAdresa || k.adresa;
 
         //narudžbenica
@@ -133,9 +138,10 @@ export default function PlacanjeClient({k}:KorisnikProps){
         }
         
         alert("Uspešno poručivanje proizvoda!");
-        redirect("/");
-        removeAllProizvod();
-
+        
+        setPlacanjeZavrseno(true);
+        router.push(`/faktura?id=${narudzbenica.id}`); //šaljemo id narudžbenice, za razliku od redirect ne blokira nastavljanje
+        removeAllProizvod(); //iz korpe
     } 
 
 
@@ -195,7 +201,11 @@ export default function PlacanjeClient({k}:KorisnikProps){
                 name="ptt"
                 defaultValue=""
                 className="border rounded w-full text-center"
-                onChange={(e) => setPtt(e.target.value)}
+                onChange={(e) => {
+                    // dozvoljava samo cifre
+                    const onlyNumbers = e.target.value.replace(/\D/g, ""); //ukljanja sve sto nije broj
+                    setPtt(onlyNumbers.slice(0, 5));
+                }}
              />
              <label className="mt-1 text-purple-900"><strong>Unesite drugu adresu za dostavu: </strong></label>
              <input 

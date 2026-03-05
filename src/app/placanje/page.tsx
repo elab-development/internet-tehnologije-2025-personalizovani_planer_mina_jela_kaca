@@ -2,7 +2,7 @@
 import { AUTH_COOKIE, verifyAuthToken } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import PlacanjeClient from "@/components/PlacanjeClient";
+import PlacanjeClient from "@/app/placanje/PlacanjeClient";
 import { db } from "@/db";
 import { korisniciTabela } from "@/db/schema";
 import { eq } from "drizzle-orm";
