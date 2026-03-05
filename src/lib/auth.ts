@@ -46,7 +46,7 @@ export function cookieOpts(){
     return {
         httpOnly: true, //ne moze da se pristupi ovom cookie - samo preko http zahteva
         sameSite: "lax" as const,  //da sprecimo zlouptrebu cookie-ja
-        //secure: process.env.NODE_ENV === "production", // kad je aplikacija na produkciji moze samo da prihvata https zahteve
+        secure: process.env.NODE_ENV === "production", // kad je aplikacija na produkciji moze samo da prihvata https zahteve
         path: "/",
         maxAge: 60 * 60 * 24 *7
     }
