@@ -49,6 +49,7 @@ body {
     align-content: center;
     font-size-adjust: inherit;
     font-family: var(--font-quicksand);
+    font-weight: 700;
   }
   
 }

@@ -35,7 +35,7 @@ const roboto = Roboto({
 const lexendDeca = Lexend_Deca({ 
   variable: "--font-lexenddeca",
   subsets: ['latin', 'latin-ext'], 
-  weight: ['400','700'], 
+  weight: ['500','700'], 
 });
 
 export const metadata: Metadata = {
