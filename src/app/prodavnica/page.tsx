@@ -15,10 +15,18 @@ interface Props {
 }
 
 
+
+
 export default async function ProdavnicaPage({ searchParams }: Props) {
 
+  const res = await fetch("http://localhost:3000/api/external/cats");
+  const data = await res.json();
+  console.log(data);
+  
+  
   //ucitamo stikere iz baze
   try{
+
     const dataStiker = await db.select().from(stikerTabela).orderBy(stikerTabela.createdAt);
   
     const p = await searchParams;
@@ -56,7 +64,9 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
           </Link>
           ))}
         </div>
+        <p className="text-center text-lg mb-5 col-span-full">Cat facts: {data?.fact}</p>
         </section>
+        
       </main>
     );
 
