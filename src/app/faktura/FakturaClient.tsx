@@ -18,6 +18,8 @@ type Stiker = {
     sID: string;
     opis: string | null;
     cena: number | null;
+    kolicina: number;
+    cenaKol: number; //cena*kolicina
 }
 type Planer = {
     pID: string;
@@ -31,6 +33,8 @@ type Planer = {
     cena: number | null;
     koriceTip: "patern" | "boja" | "koža" | null;
     koriceIzgled: string | null;
+    kolicina: number;
+    cenaKol: number;
 }
 
 type Props = {
@@ -105,7 +109,8 @@ export default function FakturaClient({narID, nar, proizvodi, stikeri, planeri}:
                                 <p><strong>Vrsta stranica:</strong> {p.vrstaStranica || "-"}</p>
                                 <p><strong>Korice tip:</strong> {p.koriceTip || "-"}</p>
                                 <p><strong>Korice izgled:</strong> {p.koriceIzgled || "-"}</p>
-                                <p><strong>Cena:</strong> {p.cena ?? 0} RSD</p>
+                                <p><strong>Količina:</strong> {p.kolicina || "-"}</p>
+                                <p><strong>Cena:</strong> {p.cenaKol ?? 0} RSD</p>
 
                             </div>
                         ))}
@@ -123,7 +128,8 @@ export default function FakturaClient({narID, nar, proizvodi, stikeri, planeri}:
                                 <p><strong>Tip:</strong> Stiker</p>
                                 <p><strong>ID proizvoda:</strong> {s.sID}</p>
                                 <p><strong>Opis:</strong> {s.opis || "-"}</p>
-                                <p><strong>Cena:</strong> {s.cena ?? 0} RSD</p>
+                                <p><strong>Količina:</strong> {s.kolicina || "-"}</p>
+                                <p><strong>Cena:</strong> {s.cenaKol ?? 0} RSD</p>
                             </div>
                         ))}
                     </div>

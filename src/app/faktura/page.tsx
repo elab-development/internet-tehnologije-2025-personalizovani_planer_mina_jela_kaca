@@ -19,6 +19,8 @@ type Stiker = {
     sID: string;
     opis: string | null;
     cena: number | null;
+    kolicina: number;
+    cenaKol: number; //cena*kolicina
 }
 
 type Planer = {
@@ -30,10 +32,13 @@ type Planer = {
     vrstaKalendara: string | null;
     kalendar: string | null;
     vrstaStranica: "linije" | "kocke" | "tacke" | "prazno" | null;
-    cena: number | null;
+    cena: number | null; //individualna cena
     koriceTip: "patern" | "boja" | "koža" | null;
     koriceIzgled: string | null;
+    kolicina: number;
+    cenaKol: number; //cena*kolicina
 }
+
 
 export default async function Faktura({searchParams}: Props) {
   
@@ -55,7 +60,8 @@ export default async function Faktura({searchParams}: Props) {
         .where(eq(narudzbenicaTabela.id, id));
 
     const stavkeNar = await db
-        .select({id: stavkaNarudzbeniceTabela.id, proizvodID: stavkaNarudzbeniceTabela.proizvodID})
+        .select({id: stavkaNarudzbeniceTabela.id, proizvodID: stavkaNarudzbeniceTabela.proizvodID, 
+            kolicina: stavkaNarudzbeniceTabela.kolicina, cena: stavkaNarudzbeniceTabela.cena})
         .from(stavkaNarudzbeniceTabela)
         .where(eq(stavkaNarudzbeniceTabela.narudzbenicaID, id));
 
@@ -76,19 +82,29 @@ export default async function Faktura({searchParams}: Props) {
         .from(stikerTabela)
         .where(inArray(stikerTabela.proizvodID, proizvodIDs));
 
-    const stikeri: Stiker[] = stikeriDB.map(s => ({
-        sID: s.sID,
-        opis: s.opis,
-        cena: s.cena
-    }));
+    const stikeri: Stiker[] = stikeriDB.map(s => {
+        const stavka = stavkeNar.find(st => st.proizvodID === s.sID); //odgovarajuca stavka (za kolicinu i cenaKol)
+
+        return {
+            sID: s.sID,
+            opis: s.opis,
+            cena: s.cena ?? 0,
+            kolicina: stavka?.kolicina ?? 1,
+            cenaKol: stavka?.cena ?? s.cena ?? 0,
+        };
+    });
+    
     const planeriDB = await db
         .select({pID: planerTabela.proizvodID, posveta: planerTabela.posveta,brojStranica: planerTabela.brojStranica, dimenzije: planerTabela.dimenzije,
             bojaStranica: planerTabela.bojaStranica ,vrstaKalendara: planerTabela.vrstaKalendara, kalendar: planerTabela.kalendar, vrstaStranica: planerTabela.vrstaStranica ,cena: planerTabela.cena,
             koriceTip: koriceTabela.tip, koriceIzgled: koriceTabela.izgled})
         .from(planerTabela).leftJoin(koriceTabela, eq(planerTabela.koriceID, koriceTabela.id))
         .where(inArray(planerTabela.proizvodID, proizvodIDs));
+        
 
-    const planeri: Planer[] = planeriDB.map(p => ({
+    const planeri: Planer[] = planeriDB.map(p => {
+    const stavka = stavkeNar.find(s => s.proizvodID === p.pID); //pronalazi odgovarajucu
+    return {
         pID: p.pID,
         posveta: p.posveta,
         brojStranica: p.brojStranica,
@@ -99,8 +115,11 @@ export default async function Faktura({searchParams}: Props) {
         vrstaStranica: p.vrstaStranica,
         cena: p.cena,
         koriceTip: p.koriceTip,
-        koriceIzgled: p.koriceIzgled
-    }));
+        koriceIzgled: p.koriceIzgled,
+        kolicina: stavka?.kolicina ?? 1,
+        cenaKol: stavka?.cena ?? p.cena ?? 0
+    }
+});
 
     return (
         <main className="min-h-screen bg-purple-100 font-sans">

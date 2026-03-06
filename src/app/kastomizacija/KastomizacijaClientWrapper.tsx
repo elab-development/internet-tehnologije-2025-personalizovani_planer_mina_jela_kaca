@@ -23,6 +23,8 @@ export function KastomizacijaClientWrapper({token}: TipToken){
     const [kalendar, setKalendar] = useState<string|null>(null);
     const [posveta, setPosveta] = useState<string>("");
 
+    const [kolicina, setKolicina] = useState<number>(1);
+
                         // •`_´•
     function dodajUKorpu(e: any){
         e.preventDefault();
@@ -36,9 +38,9 @@ export function KastomizacijaClientWrapper({token}: TipToken){
         if(
             !dimenzije || !brojStranica || !vrstaStranica || !korice || 
             (korice !== "koža" && !koriceIzgled) || !bojaStranica || !vrstaKalendara ||
-            (vrstaKalendara !== "nedatumiran" && !kalendar)
+            (vrstaKalendara !== "nedatumiran" && !kalendar || kolicina <= 0)
         ){
-            alert("Morate popuniti sva polja!! [Osim posvete]");
+            alert("Morate popuniti sva polja!!\n(Osim posvete)");
             return;
         }
 
@@ -74,14 +76,16 @@ export function KastomizacijaClientWrapper({token}: TipToken){
             case "koža": cena = cenaBrojStr + 450.99;
                 break;
         }
-               
+        
+        let cenaKol = cena * kolicina;
 
         const planerData = {
             dimenzije, brojStranica, vrstaStranica, korice, 
             koriceIzgled: korice === "koža" ? "" : koriceIzgled,
             bojaStranica, vrstaKalendara,
             kalendar: vrstaKalendara === "nedatumiran" ? "" : kalendar,
-            posveta, cena
+            posveta, cena, 
+            kolicina, cenaKol
         };
 
         console.log(planerData);
@@ -147,6 +151,17 @@ export function KastomizacijaClientWrapper({token}: TipToken){
                     subValue={kalendar} 
                     onChange={setVrstaKalendara} 
                     onSubChange={setKalendar} 
+                />
+            </div>
+
+            <div className="flex flex-col items-center pt-4">
+                <h2 className="text-lg font-bold text-purple-800">KOLIČINA:</h2>
+                <input 
+                    type="number" 
+                    min={1} 
+                    value={kolicina} 
+                    onChange={(e) => setKolicina(Number(e.target.value))} 
+                    className="border-2 border-purple-300 rounded-lg w-20 text-center py-1"
                 />
             </div>
 
