@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useReducer, useState } from "react"; //jer fetch treba raditi nakon što se komponenta mound-uje u browser-u 
+import { useEffect, useState } from "react"; //jer fetch treba raditi nakon što se komponenta mound-uje u browser-u 
 
 
 type ZenData = {
