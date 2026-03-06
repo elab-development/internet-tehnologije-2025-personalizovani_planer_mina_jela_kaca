@@ -15,6 +15,6 @@ export async function OPTIONS() {
 }
 
 export async function GET() {
-  const korisnici = await db.select().from(korisniciTabela).orderBy(korisniciTabela.createdAt);
+  const korisnici = await db.select().from(korisniciTabela).orderBy(korisniciTabela.ime);
   return NextResponse.json({ users: korisnici });
 }

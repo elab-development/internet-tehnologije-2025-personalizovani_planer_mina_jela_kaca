@@ -25,7 +25,7 @@ export default function KorpaClient(){
     return(
         <div>
             {korpa.map((item: KorpaProizvod, index: number) => (
-                <div key={index} className="bg-purple-100 rounded-lg shadow p-6 mb-3 flex flex-col justify-between">
+                <div key={index} className="bg-purple-100 rounded-lg shadow p-6 mb-3 flex flex-wrap flex-col justify-between max-w-full">
                   <div>
                     {item.tip === "planer" && (
                      <>
@@ -57,7 +57,7 @@ export default function KorpaClient(){
                 
                 <button
                     onClick={() => removeProizvod(index)}
-                    className="bg-purple-400 text-white px-3 py-1 rounded hover:bg-purple-500">
+                    className="bg-purple-400 text-white px-3 py-1 rounded hover:bg-purple-500 mt-6">
                     Ukloni proizvod iz korpe
                 </button>
 

@@ -43,12 +43,13 @@ export default function PlacanjeClient({k}:KorisnikProps){
 
     //--------------------------------------------------DUGME-------------------------------------------
     const handlePoruci = async () => {
-        if (ptt.length !== 5) {
-            alert("PTT broj mora imati tačno 5 cifara!");
-            return;
-        }
         if(ptt === ""){
             alert("PTT polje je obavezno!");
+            return;
+        }
+        const regex = /^\d{5}$/;
+        if (!regex.test(ptt)) {
+            alert("PTT broj mora imati tačno 5 cifara!");
             return;
         }
         

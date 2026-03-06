@@ -47,7 +47,10 @@ export default function FakturaClient({narID, nar, proizvodi, stikeri, planeri}:
     async function handlePDF() {
         const html2pdf = await require ("html2pdf.js");
         const element = document.querySelector<HTMLElement>('#invoice')!;
-        html2pdf(element, {margin:20});
+        html2pdf(element, {
+            margin:20,
+            filename: `narudzbenica_${narID}.pdf`
+        });
     }
 
     //neću da budem amerikanac
@@ -64,13 +67,13 @@ export default function FakturaClient({narID, nar, proizvodi, stikeri, planeri}:
         <>
         <div id="invoice">
 
-            <h1 className="text-4xl font-bold mb-4 text-center">FAKTURA</h1>
+            <h1 className="text-4xl font-bold mb-4 text-center text-[#123456]">FAKTURA</h1>
 
-            <button
+            <button 
                 onClick={handlePDF} 
-                className="bg-purple-600 hover:bg-pink-500 text-white py-1 px-4 w-50 rounded"
-                data-html2canvas-ignore>
-                Download PDF
+                className="bg-purple-600 hover:bg-pink-500 text-white py-1 px-4 w-50 rounded" 
+                data-html2canvas-ignore> 
+                Download PDF 
             </button>
 
             <div className="max-w-300 mx-auto p-6">
