@@ -18,12 +18,12 @@ interface Props {
 
 
 export default async function ProdavnicaPage({ searchParams }: Props) {
-
-  const res = await fetch("http://localhost:3000/api/external/cats");
-  const data = await res.json();
-  console.log(data);
-  
-  
+    async function macke() {
+      const res = await fetch("http://localhost:3000/api/external/cats");
+      const data = await res.json();
+      console.log(data);
+      return data?.fact;
+    }
   //ucitamo stikere iz baze
   try{
 
@@ -39,6 +39,7 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
     //uzimamo auth token
     const kolac = await cookies();
     const token = kolac.get(AUTH_COOKIE)?.value;
+
 
     return (
       <main className=" bg-gray-100 font-sans min-h-screen">
@@ -64,7 +65,9 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
           </Link>
           ))}
         </div>
-        <p className="text-center text-lg mb-5 col-span-full">Cat facts: {data?.fact}</p>
+        <p className="text-center text-lg mb-5 col-span-full">
+          Cat facts: {await macke()}
+        </p>
         </section>
         
       </main>
