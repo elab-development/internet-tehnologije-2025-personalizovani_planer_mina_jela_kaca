@@ -2,6 +2,16 @@ import "dotenv/config";
 import { koriceTabela, korisniciTabela, narudzbenicaTabela, planerTabela, proizvodTabela, stavkaNarudzbeniceTabela, stikerTabela } from "./schema";
 import { db } from "./index";
 import bcrypt from "bcrypt";
+import { sql } from "drizzle-orm";
+
+//mozemo da vrsimo db:seed vise puta u jednom kontejneru, jer ce prv obrisati sve :0 
+await db.delete(stavkaNarudzbeniceTabela);
+await db.delete(planerTabela);
+await db.delete(stikerTabela);
+await db.delete(proizvodTabela);
+await db.delete(narudzbenicaTabela);
+await db.delete(koriceTabela);
+await db.delete(korisniciTabela);
 
 const hash = await bcrypt.hash("1233", 10);
 await db.transaction(async (tx) => {
@@ -170,15 +180,61 @@ await db.transaction(async (tx) => {
 await db.transaction(async (tx) => {
 	await tx.insert(koriceTabela).values([
     {
-		id: "00000000-0000-0000-0000-000000000150",
+		id: "00000000-0000-0000-0800-000000000151",
 		tip: "patern",
-		izgled: "flamingosi"	
+		izgled: "flamingo"	
     },
 	{
-		id: "00000000-0000-0000-0000-000000000151",
+		id: "00000000-0000-0000-0800-000000000152",
+		tip: "patern",
+		izgled: "cveće"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000153",
+		tip: "patern",
+		izgled: "svemir"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000154",
+		tip: "patern",
+		izgled: "lišće"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000155",
+		tip: "patern",
+		izgled: "geometrija"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000156",
+		tip: "boja",
+		izgled: "bela"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000157",
+		tip: "boja",
+		izgled: "roze"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000158",
 		tip: "boja",
 		izgled: "plava"	
     },
+	{
+		id: "00000000-0000-0000-0800-000000000159",
+		tip: "boja",
+		izgled: "ljubičasta"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000160",
+		tip: "boja",
+		izgled: "zelena"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000161",
+		tip: "koža",
+		izgled: "-"	
+    },
+	
 	
 	]);
 });
@@ -194,7 +250,7 @@ await db.transaction(async (tx) => {
 		vrstaStranica: "tacke",
 		cena: 600,
 		proizvodID: "00000000-0000-0000-0000-000000000021",
-		koriceID: "00000000-0000-0000-0000-000000000150"	
+		koriceID: "00000000-0000-0000-0800-000000000151"	
     },
 	
 	]);

@@ -1,7 +1,7 @@
 import { AUTH_COOKIE } from "@/lib/auth";
 import { cookies } from "next/headers";
 
-import { KastomizacijaClientWrapper } from "@/components/KastomizacijaClientWrapper";
+import { KastomizacijaClientWrapper } from "./KastomizacijaClientWrapper";
 
 
 

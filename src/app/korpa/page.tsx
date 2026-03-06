@@ -2,7 +2,7 @@
 import { cookies } from "next/headers";
 import { AUTH_COOKIE, verifyAuthToken } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import KorpaClient from "@/components/KorpaClient";
+import KorpaClient from "@/app/korpa/KorpaClient";
 
 import Image from "next/image";
 
