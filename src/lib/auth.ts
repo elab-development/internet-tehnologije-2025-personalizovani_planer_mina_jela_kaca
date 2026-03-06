@@ -4,7 +4,7 @@ export const AUTH_COOKIE = "auth";
 const JWT_SECRET = process.env.JWT_SECRET!;
 
 if(!JWT_SECRET){
-    throw new Error("Nedostaje JWT kljuc u .env fajl!");
+    throw new Error("Nedostaje JWT kljuc u .env fajl (" + JWT_SECRET + ")");
 }
 
 //definicija izgleda tokena
