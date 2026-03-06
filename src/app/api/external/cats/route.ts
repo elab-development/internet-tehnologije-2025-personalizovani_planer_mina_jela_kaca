@@ -1,6 +1,3 @@
-import { db } from "@/db";
-import { korisniciTabela } from "@/db/schema";
-import { NextResponse } from "next/server";
 
 export async function OPTIONS() {
   return new NextResponse(null, {
@@ -14,7 +11,14 @@ export async function OPTIONS() {
   });
 }
 
+import { NextResponse } from "next/server";
+
 export async function GET() {
-  const korisnici = await db.select().from(korisniciTabela).orderBy(korisniciTabela.ime);
-  return NextResponse.json({ users: korisnici });
+  try {
+    const res = await fetch("https://catfact.ninja/fact");
+    const data = await res.json();
+    return NextResponse.json(data);
+  } catch (err) {
+    return NextResponse.json({ error: "Failed to fetch cat facts" }, { status: 500 });
+  }
 }

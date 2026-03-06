@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 
 type Stavka = {
     //id
+    kolicina: number;
     cena: number;
     narudzbenicaID: string;
     proizvodID: string;
@@ -23,7 +24,7 @@ export async function OPTIONS() {
 
 export async function POST(req: Request){
 
-    const {cena, narudzbenicaID, proizvodID} = (await req.json()) as Stavka;
+    const {kolicina, cena, narudzbenicaID, proizvodID} = (await req.json()) as Stavka;
 
     if(!cena || !narudzbenicaID || !proizvodID){
         return NextResponse.json({error: "Nema podataka!"}, {status: 400})
@@ -31,7 +32,7 @@ export async function POST(req: Request){
 
 
     const [sn] = await db.insert(stavkaNarudzbeniceTabela)
-        .values({cena, narudzbenicaID, proizvodID})
+        .values({kolicina, cena, narudzbenicaID, proizvodID})
         .returning({id: stavkaNarudzbeniceTabela.id});
 
 

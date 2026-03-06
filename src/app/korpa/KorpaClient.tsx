@@ -8,7 +8,7 @@ export default function KorpaClient(){
     const {korpa, removeProizvod} = useKorpa();
 
     //reduce prolazi kroz niz vrednosti i sabira ih --> pocetna vrednost je 0
-    const ukupno = korpa.reduce((sum, item) => sum + item.data.cena, 0);
+    const ukupno = korpa.reduce((sum, item) => sum + item.data.cenaKol, 0);
 
     //kao string! Ukupna cena ne treba da prikazuje više od 2 decimale 
     const ukupnoString = ukupno.toFixed(2);
@@ -25,7 +25,7 @@ export default function KorpaClient(){
     return(
         <div>
             {korpa.map((item: KorpaProizvod, index: number) => (
-                <div key={index} className="bg-purple-100 rounded-lg shadow p-6 mb-3 flex flex-col justify-between">
+                <div key={index} className="bg-purple-100 rounded-lg shadow p-6 mb-3 flex flex-wrap flex-col justify-between max-w-full">
                   <div>
                     {item.tip === "planer" && (
                      <>
@@ -34,30 +34,32 @@ export default function KorpaClient(){
                             <strong>Broj stranica: </strong>{item.data.brojStranica} {" "}
                             <strong>Vrsta stranica: </strong>{item.data.vrstaStranica} {" "}
                             <strong>Korice: </strong>{item.data.korice} {" "}
-                            <strong>Korice izgled: </strong>{item.data.koriceIzgled || "-"} {" "}
+                            <strong>Korice izgled: </strong>{item.data.koriceIzgled || "- "} {" "}
                             <strong>Boja stranica: </strong>{item.data.bojaStranica} {" "}
                         </p>
                         <p className="text-left">
                             <strong>Vrsta kalendara: </strong>{item.data.vrstaKalendara} {" "}
-                            <strong>Kalendar: </strong>{item.data.kalendar || "-"} {"-"}
-                            <strong>Posveta: </strong>{item.data.posveta || "-"}
+                            <strong>Kalendar: </strong>{item.data.kalendar || "- "} {" "}
+                            <strong>Posveta: </strong>{item.data.posveta || "- "}
+                            <strong>Količina: </strong>{item.data.kolicina || "-"}
                         </p>
-                        
-                        <p className="font-semibold text-right text-lg"><strong className="text-pink-500">Cena: </strong>{item.data.cena} RSD</p>
+                        {/*item.data.cena daje individualnu cenu, za kolicina = 1 */}
+                        <p className="font-semibold text-right text-lg"><strong className="text-pink-500">Cena: </strong>{item.data.cenaKol} RSD</p>
                      </>
                     )}
                     {item.tip === "stiker" && (
                      <>
                         <h2 className="font-bold text-purple-800 text-xl">Stiker</h2>
                         <p className="text-left"><strong>Opis: </strong>{item.data.opis}</p>
-                        <p className="font-semibold text-right text-lg"><strong className="text-pink-500">Cena: </strong>{item.data.cena} RSD</p>
+                        <p className="text-left"><strong>Količina: </strong>{item.data.kolicina}</p>
+                        <p className="font-semibold text-right text-lg"><strong className="text-pink-500">Cena: </strong>{item.data.cenaKol} RSD</p>
                      </>
                     )}
                   </div>
                 
                 <button
                     onClick={() => removeProizvod(index)}
-                    className="bg-purple-400 text-white px-3 py-1 rounded hover:bg-purple-500">
+                    className="bg-purple-400 text-white px-3 py-1 rounded hover:bg-purple-500 mt-6">
                     Ukloni proizvod iz korpe
                 </button>
 
