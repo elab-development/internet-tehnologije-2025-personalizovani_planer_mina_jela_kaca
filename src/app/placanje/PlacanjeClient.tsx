@@ -38,17 +38,18 @@ export default function PlacanjeClient({k}:KorisnikProps){
         return null;
     }
 
-    const ukupno = korpa.reduce((sum, item) => sum + item.data.cena, 0);
+    const ukupno = korpa.reduce((sum, item) => sum + item.data.cenaKol, 0);
     const ukupnoString = ukupno.toFixed(2);
 
     //--------------------------------------------------DUGME-------------------------------------------
     const handlePoruci = async () => {
-        if (ptt.length !== 5) {
-            alert("PTT broj mora imati tačno 5 cifara!");
-            return;
-        }
         if(ptt === ""){
             alert("PTT polje je obavezno!");
+            return;
+        }
+        const regex = /^\d{5}$/;
+        if (!regex.test(ptt)) {
+            alert("PTT broj mora imati tačno 5 cifara!");
             return;
         }
         
@@ -102,7 +103,7 @@ export default function PlacanjeClient({k}:KorisnikProps){
                         vrstaKalendara: item.data.vrstaKalendara,
                         kalendar: item.data.kalendar,
                         vrstaStranica: item.data.vrstaStranica,
-                        cena: item.data.cena,
+                        cena: item.data.cena, //individualna cena :)
                         proizvodID: proizvod.id,
                         koriceID: korice.id
                     })
@@ -129,7 +130,8 @@ export default function PlacanjeClient({k}:KorisnikProps){
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    cena: item.data.cena,
+                    kolicina: item.data.kolicina,
+                    cena: item.data.cenaKol, //cena sracunata sa kolicinom
                     narudzbenicaID: narudzbenica.id,
                     proizvodID: proizvodID
                 })
@@ -167,15 +169,17 @@ export default function PlacanjeClient({k}:KorisnikProps){
                                     <strong>Kalendar: </strong>{item.data.kalendar || "-"} {" "}
                                     <strong>Posveta: </strong>{item.data.posveta || "-"}
                                 </p>
+                                <p className="text-left"><strong>Količina: </strong>{item.data.kolicina || " "}</p>
                                         
-                                <p className="font-semibold text-right text-lg"><strong className="text-pink-600">Cena: </strong>{item.data.cena} RSD</p>
+                                <p className="font-semibold text-right text-lg"><strong className="text-pink-600">Cena: </strong>{item.data.cenaKol} RSD</p>
                             </>
                             )}
                             {item.tip === "stiker" && (
                             <>
                                 <h2 className="font-bold text-purple-800 text-xl text-left">Stiker</h2>
                                 <p className="text-left"><strong>Opis: </strong>{item.data.opis}</p>
-                                <p className="font-semibold text-right text-lg"><strong className="text-pink-600">Cena: </strong>{item.data.cena} RSD</p>
+                                <p className="text-left"><strong>Količina: </strong>{item.data.kolicina || " "}</p>
+                                <p className="font-semibold text-right text-lg"><strong className="text-pink-600">Cena: </strong>{item.data.cenaKol} RSD</p>
                             </>
                             )}
 

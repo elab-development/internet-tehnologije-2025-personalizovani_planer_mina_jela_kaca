@@ -117,12 +117,14 @@ await db.transaction(async (tx) => {
 	await tx.insert(stavkaNarudzbeniceTabela).values([
     {
 		id: "00000000-0000-0000-0000-000000000080",
+		kolicina: 1,
 		cena: 200,
 		narudzbenicaID: "00000000-0000-0000-0000-000000000014",
 		proizvodID: "00000000-0000-0000-0000-000000000020"	
     },
 	{
 		id: "00000000-0000-0000-0000-000000000081",
+		kolicina: 1,
 		cena: 600,
 		narudzbenicaID: "00000000-0000-0000-0000-000000000014",
 		proizvodID: "00000000-0000-0000-0000-000000000021"	

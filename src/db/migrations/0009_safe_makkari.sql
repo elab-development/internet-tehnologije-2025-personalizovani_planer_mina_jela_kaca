@@ -1,0 +1,1 @@
+ALTER TABLE "stavkaNarudzbenice" ADD COLUMN "kolicina" integer;

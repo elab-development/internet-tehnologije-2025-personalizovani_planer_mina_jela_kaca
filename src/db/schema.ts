@@ -26,7 +26,8 @@ export const narudzbenicaTabela = pgTable("narudzbenica", {
 
 export const stavkaNarudzbeniceTabela = pgTable("stavkaNarudzbenice", {
     id: uuid("id").primaryKey().defaultRandom(),
-    cena: real(),
+    kolicina: integer(),
+    cena: real(), //cena proizvoda * kolicina
     narudzbenicaID: uuid("narudzbenicaID").notNull().references(()=>narudzbenicaTabela.id), //fk ka Narudzbenici
     proizvodID: uuid("proizvodID").notNull().references(()=>proizvodTabela.id), //fk ka Proizvod
     createdAt: timestamp("created_at").defaultNow(),

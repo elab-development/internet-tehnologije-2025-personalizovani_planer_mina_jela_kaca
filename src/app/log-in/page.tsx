@@ -51,7 +51,7 @@ export default function LogIn (){
 
                 <button 
                     type="submit" 
-                    className="w-full bg-black border text-white py-2 hover:bg-pink-600"
+                    className="w-full bg-purple-800 text-white py-2 hover:bg-pink-600 rounded shadow"
                 >
                     Uloguj se
                 </button>

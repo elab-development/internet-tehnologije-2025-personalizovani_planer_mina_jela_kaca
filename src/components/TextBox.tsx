@@ -29,8 +29,10 @@ export default function TextBox({stiker, token}:Props) {
     const stikerZaKorpu = {
       tip: "stiker" as const,
       data: {
-        opis: stiker.opis || "bez opisa", //jer null
-        cena: stiker.cena ?? 0
+        opis: stiker.opis || "bez opisa",
+        cena: stiker.cena ?? 0,
+        kolicina: 1,
+        cenaKol: stiker.cena ?? 0, // cena * kolicina
       },
     };
 

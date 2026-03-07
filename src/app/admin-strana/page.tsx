@@ -47,7 +47,7 @@ export default async function AdminStrana(){
             createdAt: korisniciTabela.createdAt,
         })
         .from(korisniciTabela)
-        .orderBy(korisniciTabela.createdAt)
+        .orderBy(korisniciTabela.ime)
     ).map(k => ({
         ...k,
         createdAt: k.createdAt ? k.createdAt.toISOString() : "", //konvertujemo u string jer je tipa date

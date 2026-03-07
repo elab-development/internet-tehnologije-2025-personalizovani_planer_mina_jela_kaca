@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import { redirect } from "next/navigation";
 import { KastomizacijaClient } from "./KastomizacijaClient";
 import { useKorpa } from "@/app/context/KorpaContext";
-import { date } from "drizzle-orm/mysql-core";
 
 type TipToken = {
     token: string | null;
@@ -24,6 +23,8 @@ export function KastomizacijaClientWrapper({token}: TipToken){
     const [kalendar, setKalendar] = useState<string|null>(null);
     const [posveta, setPosveta] = useState<string>("");
 
+    const [kolicina, setKolicina] = useState<number>(1);
+
                         // •`_´•
     function dodajUKorpu(e: any){
         e.preventDefault();
@@ -37,9 +38,9 @@ export function KastomizacijaClientWrapper({token}: TipToken){
         if(
             !dimenzije || !brojStranica || !vrstaStranica || !korice || 
             (korice !== "koža" && !koriceIzgled) || !bojaStranica || !vrstaKalendara ||
-            (vrstaKalendara !== "nedatumiran" && !kalendar)
+            (vrstaKalendara !== "nedatumiran" && !kalendar || kolicina <= 0)
         ){
-            alert("Morate popuniti sva polja!! [Osim posvete]");
+            alert("Morate popuniti sva polja!!\n(Osim posvete)");
             return;
         }
 
@@ -75,14 +76,16 @@ export function KastomizacijaClientWrapper({token}: TipToken){
             case "koža": cena = cenaBrojStr + 450.99;
                 break;
         }
-               
+        
+        let cenaKol = cena * kolicina;
 
         const planerData = {
             dimenzije, brojStranica, vrstaStranica, korice, 
             koriceIzgled: korice === "koža" ? "" : koriceIzgled,
             bojaStranica, vrstaKalendara,
             kalendar: vrstaKalendara === "nedatumiran" ? "" : kalendar,
-            posveta, cena
+            posveta, cena, 
+            kolicina, cenaKol
         };
 
         console.log(planerData);
@@ -97,13 +100,13 @@ export function KastomizacijaClientWrapper({token}: TipToken){
 
     return(
         <main className="min-h-screen bg-gray-100 font-sans bg-purple-100 flex flex-col items-center gap-4">
-            <div className="py-10 text-center">
+            <div className="py-5 text-center">
                 <h1 className="text-2xl font-bold mb-1 text-purple-800">NAPRAVI SVOJ</h1>
                 <h1 className="text-4xl font-bold mb-4 text-pink-700">PERSONALIZOVANI PLANER</h1>
             </div>
 
             {/* DIMENZIJE, BROJ STRANICA, VRSTA STRANICA */}
-            <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-6xl px-6 gap-8">
+            <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-6xl px-6 gap-4">
                 <h2 className="text-lg font-bold text-purple-800">DIMENZIJE:</h2>
                 <KastomizacijaClient type="dimenzije" value={dimenzije} onChange={setDimenzije} />
 
@@ -113,19 +116,19 @@ export function KastomizacijaClientWrapper({token}: TipToken){
                 <h2 className="text-lg font-bold text-purple-800">VRSTA STRANICA(LINIJA):</h2>
                 <KastomizacijaClient type="vrstaStranica" value={vrstaStranica} onChange={setVrstaStranica} /> 
 
-                <h2 className="font-semibold text-purple-800 pt-4">Posveta:</h2> 
+                <h2 className="font-semibold text-purple-800 pt-4">Posveta (opcionalno):</h2> 
                 <input 
                     type="text" 
-
-                    maxLength={205} 
-                    className="border-1 border-purple-800 w-full" 
+                    maxLength={30} 
+                    placeholder="Unesite tekst..."
+                    className="border-b-2 border-purple-300 focus:border-purple-600 outline-none w-full text-center py-2 transition-colors" 
                     value={posveta}
                     onChange={(e) => setPosveta(e.target.value)}
                 />
             </div>
 
             {/* KORICE I BOJA STRANA */}
-             <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-6xl px-6 gap-8">
+             <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-6xl px-6 gap-4">
                 <h2 className="text-lg font-bold text-purple-800">KORICE:</h2>
                 <KastomizacijaClient 
                     type="korice" 
@@ -140,7 +143,7 @@ export function KastomizacijaClientWrapper({token}: TipToken){
             </div>
 
             {/* VRSTA KALENDARA */}
-             <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-6xl px-6 gap-8">
+             <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-6xl px-6 gap-4">
                 <h2 className="text-lg font-bold text-purple-800">VRSTA KALENDARA:</h2>
                 <KastomizacijaClient 
                     type="vrstaKalendara" 
@@ -151,8 +154,19 @@ export function KastomizacijaClientWrapper({token}: TipToken){
                 />
             </div>
 
+            <div className="flex flex-col items-center pt-4">
+                <h2 className="text-lg font-bold text-purple-800">KOLIČINA:</h2>
+                <input 
+                    type="number" 
+                    min={1} 
+                    value={kolicina} 
+                    onChange={(e) => setKolicina(Number(e.target.value))} 
+                    className="border-2 border-purple-300 rounded-lg w-20 text-center py-1"
+                />
+            </div>
+
             {/* DUGME */}
-            <form onSubmit={dodajUKorpu} className="text-center pb-4">
+            <form onSubmit={dodajUKorpu} className="text-center pt-8 pb-8">
                 <button
                     type="submit"
                     className="bg-purple-600 hover:bg-pink-500 text-white rounded-lg px-3 py-3">
