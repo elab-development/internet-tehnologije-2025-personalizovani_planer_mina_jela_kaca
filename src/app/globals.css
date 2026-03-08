@@ -25,6 +25,18 @@ body {
   
 }
 
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;  
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+
 @layer base {
   
   h1{
@@ -32,8 +44,8 @@ body {
     padding-top: 3%;
     font-size: 2.25rem;
     color: #9d174d;
-    font-weight: bolder;
-    font-family: "Roboto", sans-serif;
+    font-weight: 900;
+    font-family: var(--font-quicksand);
   }
 
   h2{
@@ -42,7 +54,7 @@ body {
     font-size: 1.25rem;
     color: #6b7280;
     font-weight: bold;
-    font-family: var(--font-roboto);
+    font-family: var(--font-quicksand);
   }
 
   p{
@@ -52,6 +64,20 @@ body {
     font-weight: 700;
   }
   
+  a{
+    align-content: center;
+    font-size-adjust: inherit;
+    font-family: var(--font-quicksand);
+    font-weight: 700;
+  }
+
+  Button{
+    align-content: center;
+    font-size-adjust: inherit;
+    font-family: var(--font-quicksand);
+    font-weight: 700;
+  }
+
   #invoice {
   color: #000;
   }

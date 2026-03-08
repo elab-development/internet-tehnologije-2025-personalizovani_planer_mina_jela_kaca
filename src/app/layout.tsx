@@ -9,6 +9,8 @@ import "tailwindcss"
 import { Quicksand } from 'next/font/google';
 import { Roboto } from 'next/font/google';
 import { Lexend_Deca } from 'next/font/google';
+import { Anton } from 'next/font/google';
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,8 +36,14 @@ const roboto = Roboto({
 
 const lexendDeca = Lexend_Deca({ 
   variable: "--font-lexenddeca",
-  subsets: ['latin', 'latin-ext'], 
+  subsets: ['latin-ext'], 
   weight: ['500','700'], 
+});
+
+const anton = Anton({ 
+  weight: '400', 
+  subsets: ['latin-ext'],
+  variable: '--font-anton',
 });
 
 export const metadata: Metadata = {
