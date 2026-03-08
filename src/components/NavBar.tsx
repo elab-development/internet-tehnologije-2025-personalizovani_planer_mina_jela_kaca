@@ -25,7 +25,7 @@ export function NavBar (){
 
     return(
 
-        <nav className="sticky top-0 w-full flex items-center justify-around py-5 px-24 border-b border-violet-300 bg-purple-800 font-bold text-[20px] z-50 text-white">
+        <nav className="sticky top-0 w-full flex items-center justify-around py-5 px-24 border-b border-violet-800 bg-purple-800 font-bold text-[20px] z-50 text-white">
             <p className="text-pink-200 font-anton text-4xl">PerPl</p>
 
             <ul className="flex gap-10 text-lg">

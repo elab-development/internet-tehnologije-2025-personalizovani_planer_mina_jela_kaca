@@ -4,7 +4,7 @@ import { AUTH_COOKIE, verifyAuthToken } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import KorisnikInfo from "@/components/KorisnikInfo";
+import ProfilClient from "@/app/profil/ProfilClient"
 
 export default async function Profil(){
 
@@ -25,15 +25,6 @@ export default async function Profil(){
         .from(korisniciTabela)
         .where(eq(korisniciTabela.id, kID));
 
-    return(
-        <main className="min-h-screen bg-purple-100 font-sans">
-            <div className="py-16 text-center">
-                <h1 className="text-4xl font-bold mb-4 text-gray-800 text-pink-600">KORISNIČKI PROFIL</h1>
-            
-                <KorisnikInfo k={k}></KorisnikInfo>
-            </div>
-        </main>
-
-    )
+    return <ProfilClient k={k} userID={kID}/>
 
 }

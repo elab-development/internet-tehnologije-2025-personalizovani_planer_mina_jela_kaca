@@ -68,7 +68,7 @@ export default function RootLayout({
           <KorpaProvider>
             <NavBar/>
             {children}
-            <Footer></Footer>
+            <Footer />
           </KorpaProvider>
         </AuthProvider>
         </main>

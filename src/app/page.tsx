@@ -1,9 +1,7 @@
 "use client"
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"; //jer fetch treba raditi nakon što se komponenta mound-uje u browser-u 
-import Footer from "@/components/Footer";
 
 type ZenData = {
   q: string //quote
@@ -31,7 +29,8 @@ export default function Home() {
 
   
   return (
-    <main className="snap-y snap-mandatory overflow-y-auto h-screen w-full scrollbar-hide">      
+    //className="snap-y snap-mandatory overflow-y-auto h-screen w-full scrollbar-hide"
+    <main>      
       
       <section className="h-screen w-full snap-start flex items-center justify-center bg-[url(/planer3.jpg)] bg-cover bg-center">
         <div className="h-full w-full bg-violet-200/70 flex flex-col items-center justify-center text-center p-4">
@@ -46,7 +45,7 @@ export default function Home() {
       </section>
 
       
-      <section className="h-screen w-full flex flex-col items-center justify-center bg-purple-100 px-4">
+      <section className="min-h-screen w-full flex flex-col items-center justify-center bg-purple-100 px-4">
         <div className="max-w-6xl w-full space-y-12 grid grid-cols-2">
           <div className="text-center grid grid-cols-1 mt-5">
             <p className="text-lg">
