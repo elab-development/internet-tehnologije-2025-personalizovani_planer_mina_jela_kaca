@@ -12,12 +12,14 @@
     "db:seed": "tsx src/db/seed.ts"
   },
   "dependencies": {
+    "@geoapify/geocoder-autocomplete": "^3.0.1",
     "@remixicon/react": "^4.9.0",
     "bcrypt": "^6.0.0",
     "drizzle-orm": "^0.45.1",
     "express": "^5.2.1",
     "html2pdf.js": "^0.14.0",
     "jsonwebtoken": "^9.0.3",
+    "maplibre-gl": "^5.19.0",
     "next": "16.1.6",
     "pg": "^8.18.0",
     "postcss": "^8.5.6",

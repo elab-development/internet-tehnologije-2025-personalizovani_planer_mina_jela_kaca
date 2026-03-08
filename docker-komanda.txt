@@ -3,5 +3,8 @@ sudo docker run --name planeri-postgres -e POSTGRES_USER=postgres -e POSTGRES_PA
 
 docker stop $(docker ps -a -q); docker rm $(docker ps -a -q);
 
+sudo docker stop $(sudo docker ps -a -q); sudo docker rm $(sudo docker ps -a -q);
+
+
 Docker komanda za app
 npx drizzle-kit generate && npx drizzle-kit push && tsx src/db/seed.ts && npm run dev

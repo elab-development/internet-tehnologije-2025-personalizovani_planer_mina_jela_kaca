@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"; //jer fetch treba raditi nakon što se komponenta mound-uje u browser-u 
+import Map from "@/components/Map"
 
 type ZenData = {
   q: string //quote
@@ -84,10 +85,14 @@ export default function Home() {
         <p className="mt-12 text-sm text-gray-500">
           Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank" className="underline">ZenQuotes API</a>
         </p>
-        
       </section>
+
+      <section className="min-h-screen w-full flex flex-col items-center justify-center bg-purple-100 px-4">
+        <h2 className="text-3xl font-bold mb-6 text-purple-800">Naša lokacija</h2>
+        <Map lat={44.7877144484099} lon={20.46625088264104} zoom={12} />
+      </section>
+
       <div className="snap-start">
-        
       </div>
     </main>
   );
