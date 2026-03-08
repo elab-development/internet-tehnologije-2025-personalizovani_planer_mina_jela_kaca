@@ -2,7 +2,8 @@ name: test
 on:
   push:
     branches:
-      - 'probaSwagger'
+      - 'probaSwagger' 
+      - 'main'
 jobs:
   build-test:
     runs-on: ubuntu-latest
