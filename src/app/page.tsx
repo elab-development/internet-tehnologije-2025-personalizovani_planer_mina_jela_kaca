@@ -35,7 +35,7 @@ export default function Home() {
       
       <section className="h-screen w-full snap-start flex items-center justify-center bg-[url(/planer3.jpg)] bg-cover bg-center">
         <div className="h-full w-full bg-violet-200/70 flex flex-col items-center justify-center text-center p-4">
-           <h1 className="text-6xl font-bold font-anton mb-4 text-pink-700">
+           <h1 className="text-6xl font-bold mb-4 text-pink-700 font-anton">
             PerPl - personalizovani planer
            </h1>
            <p className="text-gray-600 text-lg max-w-xl">

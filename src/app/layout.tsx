@@ -41,9 +41,9 @@ const lexendDeca = Lexend_Deca({
 });
 
 const anton = Anton({ 
-  weight: '400', 
-  subsets: ['latin-ext'],
   variable: '--font-anton',
+  subsets: ['latin'],
+  weight: ['400'],
 });
 
 export const metadata: Metadata = {

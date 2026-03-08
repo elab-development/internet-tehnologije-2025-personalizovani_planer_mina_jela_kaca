@@ -1,1 +1,7 @@
 sudo docker run --name planeri-postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=planeri -p 5432:5432 -v pgdata:/var/lib/postgresql/data -d postgres:17
+
+
+docker stop $(docker ps -a -q); docker rm $(docker ps -a -q);
+
+Docker komanda za app
+npx drizzle-kit generate && npx drizzle-kit push && tsx src/db/seed.ts && npm run dev
