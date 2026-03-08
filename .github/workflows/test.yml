@@ -20,5 +20,9 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm install
-      - run: 
+      - run: |
+          echo 'DATABASE_URL=postgres://postgres:postgres@localhost:5432/planeri' > .env
+          echo 'API_URL=http://localhost:3000' >> .env
+          echo 'JWT_SECRET=TAJNA_LOZINKA_ZA_JWT_TOKEN' >> .env
+          echo 'JWT_EXPIRES=7d' >> .env
       - run: docker build .
