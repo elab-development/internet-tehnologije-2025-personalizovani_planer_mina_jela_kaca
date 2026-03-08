@@ -2,7 +2,7 @@ name: test
 on:
   push:
     branches:
-      - 'develop'
+      - 'probaSwagger'
 jobs:
   build-test:
     runs-on: ubuntu-latest
