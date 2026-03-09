@@ -112,7 +112,7 @@ Aplikacija je organizovana prema principu rutiranja u Next.js.
 
 Sva serverska logika povezivanja baze podataka sa frontend delom aplikacije
 se desava preko api zahteva tacnije u api folderu koji su zasticeni od bezbednosnih
-napada (XSS, CSRF i SQL Injections).
+napada (XSS, COSR i SQL Injections).
 
 -**api/auth** - se nalaze nasi lokalni api zahtevi za upravljanje nad korisnicima, narudzbenicama, stikerima i planerima
 -**api/external**- nalaze se ekterni API zahtevi za prikazivanje zen citata i cinjenicama o mackama
