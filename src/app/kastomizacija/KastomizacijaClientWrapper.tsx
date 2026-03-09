@@ -99,14 +99,14 @@ export function KastomizacijaClientWrapper({token}: TipToken){
 
 
     return(
-        <main className="min-h-screen bg-gray-100 font-sans bg-purple-100 flex flex-col items-center gap-4">
+        <main className="min-h-screen font-sans bg-purple-100 flex flex-col items-center gap-4">
             <div className="py-5 text-center">
                 <h1 className="text-2xl font-bold mb-1 text-purple-800">NAPRAVI SVOJ</h1>
                 <h1 className="text-4xl font-bold mb-4 text-pink-700">PERSONALIZOVANI PLANER</h1>
             </div>
 
             {/* DIMENZIJE, BROJ STRANICA, VRSTA STRANICA */}
-            <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-6xl px-6 gap-4">
+            <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-7xl px-6 gap-4">
                 <h2 className="text-lg font-bold text-purple-800">DIMENZIJE:</h2>
                 <KastomizacijaClient type="dimenzije" value={dimenzije} onChange={setDimenzije} />
 
@@ -128,7 +128,7 @@ export function KastomizacijaClientWrapper({token}: TipToken){
             </div>
 
             {/* KORICE I BOJA STRANA */}
-             <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-6xl px-6 gap-4">
+             <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-7xl px-6 gap-4">
                 <h2 className="text-lg font-bold text-purple-800">KORICE:</h2>
                 <KastomizacijaClient 
                     type="korice" 
@@ -143,7 +143,7 @@ export function KastomizacijaClientWrapper({token}: TipToken){
             </div>
 
             {/* VRSTA KALENDARA */}
-             <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-6xl px-6 gap-4">
+             <div className="flex flex-col items-center border-4 border-dotted border-purple-300 rounded-lg py-8 w-full max-w-7xl px-6 gap-4">
                 <h2 className="text-lg font-bold text-purple-800">VRSTA KALENDARA:</h2>
                 <KastomizacijaClient 
                     type="vrstaKalendara" 

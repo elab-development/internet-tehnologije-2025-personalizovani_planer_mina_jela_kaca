@@ -15,7 +15,7 @@ export default async function Korpa(){
     }
 
     return(
-        <main className="min-h-screen bg-gray-100 font-sans">
+        <main className="min-h-screen bg-purple-100 font-sans">
             <div className="text-center">
                 <h1 className="text-4xl font-bold mb-4 pb-5 flex items-center justify-center gap-3">
                     Korpa 

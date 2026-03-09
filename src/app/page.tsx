@@ -56,9 +56,9 @@ export default function Home() {
             
             
             <div className="flex flex-row gap-4 justify-center mt-8 w-full">
-              <button onClick={() => router.push("/kastomizacija")} className="bg-purple-700 text-white text-xl px-6 py-3 rounded hover:bg-pink-600 w-52 shadow-md transition-all"> Kreiraj planer
+              <button onClick={() => router.push("/kastomizacija")} className="bg-purple-700 text-white text-xl px-6 py-1 rounded hover:bg-pink-600 w-52 shadow-md transition-all"> Kreiraj planer
               </button>
-              <button onClick={() => router.push("/prodavnica")} className="bg-purple-700 text-white text-xl px-6 py-3 rounded hover:bg-pink-600 w-52 shadow-md transition-all"> Stikeri
+              <button onClick={() => router.push("/prodavnica")} className="bg-purple-700 text-white text-xl px-6 py-1 rounded hover:bg-pink-600 w-52 shadow-md transition-all"> Stikeri
               </button>
             </div>
 

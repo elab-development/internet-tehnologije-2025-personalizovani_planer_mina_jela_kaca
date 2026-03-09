@@ -110,8 +110,8 @@ export function AdminKorisniciTabela({pocetniKorisnici, k}: Props){
                 <th className="px-6 py-4 text-center">Adresa</th>
                 <th className="px-6 py-4 text-center">Uloga</th>
                 <th className="px-6 py-4 text-center">Kreiran</th>
-                <th className="px-6 py-4 text-center">Brisanje</th>
                 <th className="px-6 py-4 text-center">Promena uloge</th>
+                <th className="px-6 py-4 text-center">Brisanje</th>
             </tr>
             </thead>
 
@@ -125,21 +125,20 @@ export function AdminKorisniciTabela({pocetniKorisnici, k}: Props){
                     <td className="px-6 py-2 text-center">{u.adresa}</td>
                     <td className="px-6 py-2 text-center">{u.uloga}</td>
                     <td className="px-6 py-2 text-center">{new Date(u.createdAt).toLocaleDateString()}</td>
-                    
                     <td className="px-6 py-2 text-center">
                         <button
-                        onClick={()=> handleDelete(u.id)}
-                        className="bg-purple-600 text-white hover:bg-pink-400 font-bold px-2 py-1 rounded"
+                        onClick={()=> handleUpdateKorisnik(u.id)}
+                        className="bg-purple-600 text-white hover:bg-pink-500 font-bold px-2 py-1 rounded"
                         >
-                            Obriši korisnika
+                            Promeni ulogu
                     </button>
                     </td>
                     <td className="px-6 py-2 text-center">
                         <button
-                        onClick={()=> handleUpdateKorisnik(u.id)}
-                        className="bg-purple-600 text-white hover:bg-pink-400 font-bold px-2 py-1 rounded"
+                        onClick={()=> handleDelete(u.id)}
+                            className="bg-pink-600 text-white hover:bg-pink-700 font-bold px-2 py-1 rounded"
                         >
-                            Promeni ulogu
+                            Obriši korisnika
                     </button>
                     </td>
                 </tr>

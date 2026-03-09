@@ -1,43 +1,47 @@
 "use client";
 
-
-import { dizajnKoricaenum } from "@/shared/types"
 import { useState } from "react"
 
-type props = {
-    name: string;
+type Korisnik = {
+  id: string;
+  username: string;
+   email: string;
 }
 
+type Props = {
+  korisnici: Korisnik[];
+  onChange: (selectedId: string) => void;
+}
+export default function ComboBox({korisnici, onChange}:Props){
 
+  const [selected, setSelected] = useState<string>("sve");
 
-export default function ComboBox(){
-const opcije = dizajnKoricaenum;
+  const options = [
+    {label: "sve narudzbenice", value: "sve"},
+    ...korisnici.map((k) => ({
+      label: `${k.email} [${k.username}]`, value: k.id
+    })),
+  ];
 
-  const [selected, setSelected] = useState<dizajnKoricaenum>(
-    dizajnKoricaenum.roze
-  );
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSelected(value);
+    onChange(value); //vraca id/"sve"!
+  };
 
-  const options = Object.values(dizajnKoricaenum).filter(
-    (v) => typeof v === "string"
-  ) as string[];
-
-return ( 
-    
+  return (    
     <section>
-            <select
-      value={dizajnKoricaenum[selected]}
-      onChange={(e) =>
-        setSelected(dizajnKoricaenum[e.target.value as keyof typeof dizajnKoricaenum])
-      }
-      className="border-2 border-violet-200 bg-violet-100 mb-1 px-2 rounded-3xl font-light"
-    >
-      {options.map((label) => (
-        <option key={label} value={label} className="text-light text-slate-500">
-          {label}
+      <select
+        value={selected}
+        onChange={(handleChange)}
+        className="border-2 border-violet-200 bg-violet-100 mb-1 px-2 rounded-3xl font-light"
+      >
+      {options.map((opt) => (
+        <option key={opt.value} value={opt.value} className="text-light text-slate-500">
+          {opt.label}
         </option>
       ))}
-    </select>
-         </section>
-  
-    )
+      </select>
+   </section>
+  )
 }
