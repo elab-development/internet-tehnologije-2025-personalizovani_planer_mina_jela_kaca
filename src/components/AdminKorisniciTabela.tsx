@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 
-type User = {
+type Korisnik = {
     id: string;
     ime: string;
     prezime: string;
@@ -15,11 +15,12 @@ type User = {
 };
 
 type Props = {
-    pocetniKorisnici: User[];
+    pocetniKorisnici: Korisnik[];
     k: {id: string, ime: string}; //trenutno ulogovan
+    onDelete: (updatedUsers: Korisnik[]) => void;
 }
 
-export function AdminKorisniciTabela({pocetniKorisnici, k}: Props){
+export function AdminKorisniciTabela({pocetniKorisnici, k, onDelete}: Props){
 
     const [users, setUsers] = useState(pocetniKorisnici);
 
@@ -28,6 +29,7 @@ export function AdminKorisniciTabela({pocetniKorisnici, k}: Props){
         if (!res.ok) return;
         const data = await res.json();
         setUsers(data.users);
+        onDelete(data.users);
     };
 
 

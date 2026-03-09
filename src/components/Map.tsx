@@ -131,7 +131,7 @@ export default function Map({ lon, lat, zoom}: MapProps) {
     <div
       ref={mapContainer}
       className="map-container rounded shadow-lg"
-      style={{ width: "100%", height: "500px" }}
+      style={{ width: "100%", height: "400px" }}
     />
   );
 }

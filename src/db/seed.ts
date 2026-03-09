@@ -2,7 +2,6 @@ import "dotenv/config";
 import { koriceTabela, korisniciTabela, narudzbenicaTabela, planerTabela, proizvodTabela, stavkaNarudzbeniceTabela, stikerTabela } from "./schema";
 import { db } from "./index";
 import bcrypt from "bcrypt";
-import { sql } from "drizzle-orm";
 
 //mozemo da vrsimo db:seed vise puta u jednom kontejneru, jer ce prv obrisati sve :0 
 await db.delete(stavkaNarudzbeniceTabela);
@@ -58,14 +57,6 @@ await db.transaction(async (tx) => {
 		ukupnaCena: 800.00,
 		status: "u obradi",
 		korisnikID: "00000000-0000-0000-0000-000000000001"
-    },
-    {
-		id: "00000000-0000-0000-0000-000000000015",
-		adresa: "ulica mina",
-		pttBroj: 11000,
-		ukupnaCena: 700.00,
-		status: "u obradi",
-		korisnikID: "00000000-0000-0000-0000-000000000003"
     },
     
 	]);

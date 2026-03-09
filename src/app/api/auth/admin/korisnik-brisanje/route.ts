@@ -45,7 +45,7 @@ export async function DELETE(req:Request) {
 
     }catch (err) {
     console.error(err);
-    return NextResponse.json({ error: "Server greska LALALALALA" }, { status: 500 });
+    return NextResponse.json({ error: "Server greska! Ne mozete obrisati korisnika koji ima narudzbenice" }, { status: 500 });
   }
 
 }

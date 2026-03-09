@@ -12,31 +12,9 @@ export default function ProfilClient({k, userID}: any){
         await logout();
     }
 
-    const handleBrisanje = async () => {
-        if(!confirm("Da li ste sigurni da želite da obrišete svoj nalog?")) return;
-        try{
-            const res = await fetch("/api/auth/profil-brisanje/" , {
-                method: "DELETE",
-                headers: {"Content-Type":"application/json"},
-                body: JSON.stringify({userID: userID}),
-            });
-
-            if(!res.ok){
-                const errorData = await res.json();
-                alert(errorData.error || "Brisanje nije uspešno!");
-                return;
-            }
-            const data = await res.json();
-            
-            if(data.success){
-                alert("Nalog je uspešno obrisan!");
-                handleLogout();
-            }
-
-        }catch(err){
-            console.error(err);
-            alert("Greška prilikom brisanja korisnika!");
-        }
+    const handle = async () => {
+        if(!confirm("Da li ste sigurni da želite da se odjavite?")) return;
+        handleLogout();
     };
 
     return(
@@ -47,10 +25,10 @@ export default function ProfilClient({k, userID}: any){
                 <KorisnikInfo k={k} />
 
                 <button
-                    onClick={handleBrisanje}
+                    onClick={handle}
                     className="mt-2 text-lg bg-purple-600 hover:bg-pink-500 text-white py-1 px-3 rounded"
                 >
-                    Obriši nalog</button>
+                    Odjavite se</button>
             </div>
         </main>
 

@@ -35,19 +35,21 @@ export default function Home() {
       
       <section className="h-screen w-full snap-start flex items-center justify-center bg-[url(/planer3.jpg)] bg-cover bg-center">
         <div className="h-full w-full bg-violet-200/70 flex flex-col items-center justify-center text-center p-4">
-           <h1 className="text-6xl font-bold mb-4 text-pink-700 font-anton">
-            PerPl - personalizovani planer
-           </h1>
-           <p className="text-gray-600 text-lg max-w-xl">
-            Najfleksibilniji planer za sve Vaše potrebe.<br /> 
-            Postanite jedan od stotine zadovoljnih kupaca PerPl planera :)
-           </p>   
+           <div className="bg-violet-400/50 p-4 rounded-4xl flex flex-col items-center">
+              <h1 className="text-6xl font-bold mb-4 text-purple-900 font-anton">
+              PerPl - personalizovani planer
+            </h1>
+            <p className="text-gray-800 text-lg max-w-xl">
+              Najfleksibilniji planer za sve Vaše potrebe.<br /> 
+              Postanite jedan od stotine zadovoljnih kupaca PerPl planera :)
+            </p>   
+           </div>
         </div>
       </section>
 
       
-      <section className="min-h-screen w-full flex flex-col items-center justify-center bg-purple-100 px-4">
-        <div className="max-w-6xl w-full space-y-12 grid grid-cols-2">
+      <section className="w-full flex flex-col items-center justify-center bg-purple-100 px-4 py-3">
+        <div className="max-w-6xl w-full space-y-12 grid grid-cols-2 mt-10">
           <div className="text-center grid grid-cols-1 mt-5">
             <p className="text-lg">
               Personalizovani planer korisniku može prilagoditi dizajn i materijal korice, stanice i vrstu kalendara. <br />
@@ -80,7 +82,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-
         
         <p className="mt-12 text-sm text-gray-500">
           Inspirational quotes provided by <a href="https://zenquotes.io/" target="_blank" className="underline">ZenQuotes API</a>
