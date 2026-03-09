@@ -15,10 +15,18 @@ interface Props {
 }
 
 
-export default async function ProdavnicaPage({ searchParams }: Props) {
 
+
+export default async function ProdavnicaPage({ searchParams }: Props) {
+    async function macke() {
+      const res = await fetch("http://localhost:3000/api/external/cats");
+      const data = await res.json();
+      console.log(data);
+      return data?.fact;
+    }
   //ucitamo stikere iz baze
   try{
+
     const dataStiker = await db.select().from(stikerTabela).orderBy(stikerTabela.createdAt);
   
     const p = await searchParams;
@@ -32,11 +40,12 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
     const kolac = await cookies();
     const token = kolac.get(AUTH_COOKIE)?.value;
 
+
     return (
       <main className=" bg-gray-100 font-sans min-h-screen">
         <div className="py-2 text-center">
-          <h1 className="text-4xl font-bold mb-4 text-gray-800">Prodavnica</h1>
-          <h1 className="text-gray-600">Trenutno dostupni artikli:</h1>
+          <h1>Prodavnica</h1>
+          <h2>Trenutno dostupni artikli:</h2>
         </div>
         <section className="bg-slate-100 max-w-6xl mx-auto px-4 py-12 pb-15 grid md:grid-cols-3 gap-6 rounded-3xl">
           {currentItems.map((stiker) => (
@@ -56,7 +65,11 @@ export default async function ProdavnicaPage({ searchParams }: Props) {
           </Link>
           ))}
         </div>
+        <p className="text-center text-lg mb-5 col-span-full">
+          Cat facts: {await macke()}
+        </p>
         </section>
+        
       </main>
     );
 

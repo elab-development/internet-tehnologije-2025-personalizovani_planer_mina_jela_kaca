@@ -1,7 +1,7 @@
 "use client"
 
-import { RadioButton } from "./RadioButton";
-import { RadioButtonImage } from "./RadioButtonImage";  
+import { RadioButton } from "@/components/RadioButton";
+import { RadioButtonImage } from "@/components/RadioButtonImage";  
 
 
 type KastomizacijaClientTip = {  //koji tip radioButton-a se trazi da vrati

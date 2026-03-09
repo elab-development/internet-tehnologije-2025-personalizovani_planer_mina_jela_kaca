@@ -29,8 +29,10 @@ export default function TextBox({stiker, token}:Props) {
     const stikerZaKorpu = {
       tip: "stiker" as const,
       data: {
-        opis: stiker.opis || "bez opisa", //jer null
-        cena: stiker.cena ?? 0
+        opis: stiker.opis || "bez opisa",
+        cena: stiker.cena ?? 0,
+        kolicina: 1,
+        cenaKol: stiker.cena ?? 0, // cena * kolicina
       },
     };
 
@@ -39,7 +41,7 @@ export default function TextBox({stiker, token}:Props) {
   }
 
 return (
-    <section className="max-w-6xl mx-auto px-4 py-12 md:grid-cols-3 gap-6">
+    <section className="max-w-6xl mx-auto px-4 py-12 md:grid-cols-3 gap-6 z-30">
         <div key={2} className="group relative overflow-hidden rounded-lg border-gray-300 bg-gray-200 p-6 shadow hover:bg-gray-300 hover:shadow-lg flex flex-col justify-center w-64 h-100">
           
           <h3 className="text-xl font-semibold mb-2 text-purple-900 text-center">STIKER</h3>

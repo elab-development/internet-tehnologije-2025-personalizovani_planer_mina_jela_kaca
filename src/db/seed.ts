@@ -3,6 +3,15 @@ import { koriceTabela, korisniciTabela, narudzbenicaTabela, planerTabela, proizv
 import { db } from "./index";
 import bcrypt from "bcrypt";
 
+//mozemo da vrsimo db:seed vise puta u jednom kontejneru, jer ce prv obrisati sve :0 
+await db.delete(stavkaNarudzbeniceTabela);
+await db.delete(planerTabela);
+await db.delete(stikerTabela);
+await db.delete(proizvodTabela);
+await db.delete(narudzbenicaTabela);
+await db.delete(koriceTabela);
+await db.delete(korisniciTabela);
+
 const hash = await bcrypt.hash("1233", 10);
 await db.transaction(async (tx) => {
 	await tx.insert(korisniciTabela).values([
@@ -48,14 +57,6 @@ await db.transaction(async (tx) => {
 		ukupnaCena: 800.00,
 		status: "u obradi",
 		korisnikID: "00000000-0000-0000-0000-000000000001"
-    },
-    {
-		id: "00000000-0000-0000-0000-000000000015",
-		adresa: "ulica mina",
-		pttBroj: 11000,
-		ukupnaCena: 700.00,
-		status: "u obradi",
-		korisnikID: "00000000-0000-0000-0000-000000000003"
     },
     
 	]);
@@ -107,12 +108,14 @@ await db.transaction(async (tx) => {
 	await tx.insert(stavkaNarudzbeniceTabela).values([
     {
 		id: "00000000-0000-0000-0000-000000000080",
+		kolicina: 1,
 		cena: 200,
 		narudzbenicaID: "00000000-0000-0000-0000-000000000014",
 		proizvodID: "00000000-0000-0000-0000-000000000020"	
     },
 	{
 		id: "00000000-0000-0000-0000-000000000081",
+		kolicina: 1,
 		cena: 600,
 		narudzbenicaID: "00000000-0000-0000-0000-000000000014",
 		proizvodID: "00000000-0000-0000-0000-000000000021"	
@@ -170,15 +173,61 @@ await db.transaction(async (tx) => {
 await db.transaction(async (tx) => {
 	await tx.insert(koriceTabela).values([
     {
-		id: "00000000-0000-0000-0000-000000000150",
+		id: "00000000-0000-0000-0800-000000000151",
 		tip: "patern",
-		izgled: "flamingosi"	
+		izgled: "flamingo"	
     },
 	{
-		id: "00000000-0000-0000-0000-000000000151",
+		id: "00000000-0000-0000-0800-000000000152",
+		tip: "patern",
+		izgled: "cveće"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000153",
+		tip: "patern",
+		izgled: "svemir"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000154",
+		tip: "patern",
+		izgled: "lišće"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000155",
+		tip: "patern",
+		izgled: "geometrija"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000156",
+		tip: "boja",
+		izgled: "bela"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000157",
+		tip: "boja",
+		izgled: "roze"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000158",
 		tip: "boja",
 		izgled: "plava"	
     },
+	{
+		id: "00000000-0000-0000-0800-000000000159",
+		tip: "boja",
+		izgled: "ljubičasta"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000160",
+		tip: "boja",
+		izgled: "zelena"	
+    },
+	{
+		id: "00000000-0000-0000-0800-000000000161",
+		tip: "koža",
+		izgled: "-"	
+    },
+	
 	
 	]);
 });
@@ -194,7 +243,7 @@ await db.transaction(async (tx) => {
 		vrstaStranica: "tacke",
 		cena: 600,
 		proizvodID: "00000000-0000-0000-0000-000000000021",
-		koriceID: "00000000-0000-0000-0000-000000000150"	
+		koriceID: "00000000-0000-0000-0800-000000000151"	
     },
 	
 	]);

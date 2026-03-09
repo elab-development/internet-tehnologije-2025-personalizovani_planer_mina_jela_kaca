@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import {useAuth} from "@/components/AuthProvider";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RiUser3Line } from "@remixicon/react";
 import { useRouter } from "next/navigation";
  
@@ -16,6 +16,19 @@ export function NavBar (){
     const isAdmin = status === "autentifikovani" && user?.uloga === "admin";
     const [open, setOpen] = useState(false); //prozor profila
     
+    // učitavanje mačke sa Cataas API
+    const [cat, setCat] = useState("");
+    const [catOpen, setCatOpen] = useState("");
+    useEffect(() => {
+        fetch("https://cataas.com/cat?json=true")
+            .then(res => res.json())
+            .then(data => {
+                setCat(`https://cataas.com/cat/${data.id}`);
+                setCatOpen(`https://cataas.com/cat/${data.id}?width=200&height=200`);
+            })
+            .catch(err => console.error(err));
+    }, []);
+
     const router = useRouter();
 
     const handleLogout = async () => {
@@ -25,8 +38,8 @@ export function NavBar (){
 
     return(
 
-        <nav className="sticky top-0 w-full flex items-center justify-around py-5 px-24 border-b border-violet-300 bg-purple-700 font-bold text-[20px] z-1200 text-white">
-            <p className="text-pink-200 font-bold text-4xl">Perpl</p>
+        <nav className="sticky top-0 w-full flex items-center justify-around py-5 px-24 border-b border-violet-800 bg-purple-800 font-bold text-[20px] z-50 text-white">
+            <p className="text-pink-200 font-anton text-4xl">PerPl</p>
 
             <ul className="flex gap-10 text-lg">
                 <Link rel="stylesheet" href="/"> Početna </Link>
@@ -36,11 +49,6 @@ export function NavBar (){
                 <Link rel="stylesheet" href="/prodavnica"> Prodavnica </Link>
 
                 <Link rel="stylesheet" href="/korpa"> Korpa </Link>
-
-
-
-                {/*Ovo je CHECKOUT - ne trab da stoji u navbaru nego se prilazi iz Korpe */}
-                <Link rel="stylesheet" href="/placanje"> Placanje </Link>
 
 
                 {/*admin strana gde su narudzbenice i korisnici, samo admin je vidi*/}
@@ -56,13 +64,29 @@ export function NavBar (){
                             className="flex h-7 w-7 items-center cursor-pointer justify-center rounded-full bg-purple-100 text-purple-600 transition hover:bg-pink-200"
                             onClick={() => setOpen(prev => !prev)}
                         >   
-                            <RiUser3Line className="h-4 w-4" />
+                            {/*//<RiUser3Line className="h-4 w-4" />*/}
+                             {cat ? (
+                                <img
+                                    src={cat}
+                                    alt="mac mac"
+                                    className="h-8 w-8 object-cover rounded-full"
+                                />
+                            ) : (
+                                <div className="h-4 w-4 bg-pink-300 rounded-full animate-pulse" />
+                            )}
                         </button>
 
                         <div
                             className={`z-50  absolute right-0 top-12  min-w-47.5 rounded-md border border-black/10 
                                 bg-white p-2 text-sm shadow-md transition-all ${open ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-                        >
+                        >   
+                            {catOpen && (
+                                <img
+                                    src={catOpen}
+                                    alt="Mac mac"
+                                    className="w-32 h-32 object-cover rounded-md mx-auto mb-2"
+                                />
+                            )}
                             <span className="block px-2 py-1 text-purple-700 max-w-35 text-nowrap overflow-hidden ">
                                 {user?.ime}{" ["}{user?.username}{"]"}
                             </span>

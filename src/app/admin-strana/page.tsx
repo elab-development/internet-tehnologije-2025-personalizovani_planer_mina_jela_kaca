@@ -1,10 +1,10 @@
-import { AdminKorisniciTabela } from "@/components/AdminKorisniciTabela";
 import { db } from "@/db";
-import { korisniciTabela } from "@/db/schema";
+import { korisniciTabela, narudzbenicaTabela } from "@/db/schema";
 import { AUTH_COOKIE, verifyAuthToken } from "@/lib/auth";
 import { eq } from "drizzle-orm";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import AdminClient from "./AdminClient";
 
 
 export default async function AdminStrana(){
@@ -35,7 +35,7 @@ export default async function AdminStrana(){
     console.log(k.ime + " " + k.prezime + " ");
 
 
-    const korisnici = (await db
+    const korisniciDB = (await db
         .select({
             id: korisniciTabela.id,
             username: korisniciTabela.username,
@@ -47,22 +47,35 @@ export default async function AdminStrana(){
             createdAt: korisniciTabela.createdAt,
         })
         .from(korisniciTabela)
-        .orderBy(korisniciTabela.createdAt)
+        .orderBy(korisniciTabela.ime)
     ).map(k => ({
         ...k,
         createdAt: k.createdAt ? k.createdAt.toISOString() : "", //konvertujemo u string jer je tipa date
     }));
 
     
+    const narDB = await db
+        .select({
+        id: narudzbenicaTabela.id,
+        adresa: narudzbenicaTabela.adresa,
+        pttBroj: narudzbenicaTabela.pttBroj,
+        datum: narudzbenicaTabela.datum,
+        ukupnaCena: narudzbenicaTabela.ukupnaCena,
+        status: narudzbenicaTabela.status,
+        korisnikID: narudzbenicaTabela.korisnikID})
+        .from(narudzbenicaTabela)
+        .orderBy(narudzbenicaTabela.datum);       
+
+
+    
     return(
-        <main className="min-h-screen bg-gray-100 font-sans">
-            <div className="py-26 text-center">
+        <main className="w-full bg-purple-100 font-sans">
+            <div className="py-10 text-center">
                 <h1 className="text-4xl font-bold mb-4 text-gray-800">ADMIN STRANA</h1>
                 <h2 className="text-xl font-bold text-pink-700">Trenutno ulogovan: {k.ime} {k.prezime}</h2>
-            </div>
-            
-            <AdminKorisniciTabela pocetniKorisnici={korisnici} k={k}/>
+            </div> 
 
+            <AdminClient korisnici={korisniciDB} narudzbenice={narDB} k={k} />
 
         </main>
 

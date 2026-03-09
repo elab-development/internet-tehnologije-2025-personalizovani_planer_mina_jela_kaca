@@ -1,0 +1,29 @@
+name: test
+on:
+  push:
+    branches:
+      - 'probaSwagger' 
+      - 'main'
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "postgres://user:pass@localhost:5432/planeri"
+      JWT_SECRET: "TAJNA_LOZINKA_ZA_JWT_TOKEN"
+      JWT_EXPIRES: "7d"
+      API_URL: "http://localhost:3000"
+    
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: "npm"
+      - name: Install dependencies
+        run: npm install
+      - run: |
+          echo 'DATABASE_URL=postgres://postgres:postgres@localhost:5432/planeri' > .env
+          echo 'API_URL=http://localhost:3000' >> .env
+          echo 'JWT_SECRET=TAJNA_LOZINKA_ZA_JWT_TOKEN' >> .env
+          echo 'JWT_EXPIRES=7d' >> .env
+      - run: docker build .

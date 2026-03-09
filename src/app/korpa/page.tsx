@@ -2,7 +2,7 @@
 import { cookies } from "next/headers";
 import { AUTH_COOKIE, verifyAuthToken } from "@/lib/auth";
 import { redirect } from "next/navigation";
-import KorpaClient from "@/components/KorpaClient";
+import KorpaClient from "@/app/korpa/KorpaClient";
 
 import Image from "next/image";
 
@@ -15,9 +15,9 @@ export default async function Korpa(){
     }
 
     return(
-        <main className="min-h-screen bg-gray-100 font-sans">
-            <div className="py-20 text-center">
-                <h1 className="text-4xl font-bold mb-4 text-purple-800 flex items-center justify-center gap-3">
+        <main className="min-h-screen bg-purple-100 font-sans">
+            <div className="text-center">
+                <h1 className="text-4xl font-bold mb-4 pb-5 flex items-center justify-center gap-3">
                     Korpa 
                     <Image
                         src="/korpa.svg"

@@ -92,7 +92,7 @@ export default function SignUpPage(){
                     value={password}
                     required
                 />
-                <button type="submit" className="w-full bg-black border text-white py-2 hover:bg-pink-600">
+                <button type="submit" className="w-full bg-purple-800 text-white py-2 hover:bg-pink-600 rounded shadow">
                     Kreiraj nalog
                 </button>
 
