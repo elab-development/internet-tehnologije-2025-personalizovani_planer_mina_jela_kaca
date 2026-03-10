@@ -126,7 +126,7 @@ export function AdminKorisniciTabela({pocetniKorisnici, k, onDelete}: Props){
                     <td className="px-6 py-2 text-center">{u.email}</td>
                     <td className="px-6 py-2 text-center">{u.adresa}</td>
                     <td className="px-6 py-2 text-center">{u.uloga}</td>
-                    <td className="px-6 py-2 text-center">{new Date(u.createdAt).toLocaleDateString()}</td>
+                    <td className="px-6 py-2 text-center"> {new Date(u.createdAt).toISOString().split("T")[0]}</td>
                     <td className="px-6 py-2 text-center">
                         <button
                         onClick={()=> handleUpdateKorisnik(u.id)}
