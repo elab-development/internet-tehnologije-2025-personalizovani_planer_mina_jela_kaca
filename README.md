@@ -9,12 +9,12 @@ na osnovu korisnickih naloga.
 
 ## Tehnologije koje su bile koriscene
 
--Framework: Netx.js 16+
--Baza podataka: PostgresSQL(Drizzle ORM)
--Stilizacija: Tailwind i CSS
--Autentifikacija: JWT(JSON web tokens)
--Docker i docker-compose alati
--jezik: typescript
+- Framework: Netx.js 16+
+- Baza podataka: PostgresSQL(Drizzle ORM)
+- Stilizacija: Tailwind i CSS
+- Autentifikacija: JWT(JSON web tokens)
+- Docker i docker-compose alati
+- jezik: typescript
 
 
 ## Instrukcije za lokalno pokretanje
