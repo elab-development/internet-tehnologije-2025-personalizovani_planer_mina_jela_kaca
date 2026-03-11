@@ -135,3 +135,4 @@ export default function Map({ lon, lat, zoom}: MapProps) {
     />
   );
 }
+
